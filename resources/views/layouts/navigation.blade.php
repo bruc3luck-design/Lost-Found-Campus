@@ -1,17 +1,17 @@
-<nav x-data="{ open: false }" class="bg-uin-500 text-white shadow-md border-b-2 border-gold-500">
+<nav x-data="{ open: false }" class="bg-uin-500 text-white shadow-md border-b-2 border-gold-500 sticky top-0 z-40">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex justify-between h-16">
+        <div class="flex justify-between h-14 sm:h-16">
             <!-- Sisi Kiri: Logo & Navigasi Desktop -->
-            <div class="flex items-center space-x-6">
-                <a href="{{ route('home') }}" class="flex items-center space-x-3 text-white group">
-                    <div class="w-10 h-10 rounded-xl bg-uin-700 flex items-center justify-center border border-gold-500/40 shadow-inner group-hover:scale-105 transition-transform">
-                        <svg class="w-6 h-6 text-gold-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <div class="flex items-center space-x-3 sm:space-x-6">
+                <a href="{{ route('home') }}" class="flex items-center space-x-2.5 sm:space-x-3 text-white group">
+                    <div class="w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-uin-700 flex items-center justify-center border border-gold-500/40 shadow-inner group-hover:scale-105 transition-transform shrink-0">
+                        <svg class="w-4 h-4 sm:w-5 sm:h-5 text-gold-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
                         </svg>
                     </div>
                     <div>
-                        <div class="font-bold text-base tracking-tight leading-tight text-white">Lost &amp; Found Campus</div>
-                        <div class="text-[11px] text-gold-100 font-medium">UIN Siber Syekh Nurjati Cirebon</div>
+                        <div class="font-bold text-sm sm:text-base tracking-tight leading-none sm:leading-tight text-white">Lost &amp; Found</div>
+                        <div class="text-[10px] sm:text-[11px] text-gold-100 font-medium">UIN Siber Syekh Nurjati</div>
                     </div>
                 </a>
 
@@ -67,8 +67,8 @@
 
             <!-- Tombol Hamburger Mobile -->
             <div class="flex items-center md:hidden">
-                <button @click="open = ! open" class="inline-flex items-center justify-center p-2 rounded-lg text-uin-50 hover:bg-uin-700 focus:outline-none transition-colors">
-                    <svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
+                <button @click="open = ! open" class="inline-flex items-center justify-center p-2 rounded-xl text-uin-50 hover:bg-uin-700 focus:outline-none transition-colors border border-uin-700">
+                    <svg class="h-5 w-5" stroke="currentColor" fill="none" viewBox="0 0 24 24">
                         <path :class="{'hidden': open, 'inline-flex': ! open }" class="inline-flex" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
                         <path :class="{'hidden': ! open, 'inline-flex': open }" class="hidden" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
                     </svg>
@@ -80,22 +80,22 @@
     <!-- Menu Dropdown Mobile -->
     <div :class="{'block': open, 'hidden': ! open}" class="hidden md:hidden bg-uin-700 border-t border-uin-500/40">
         <div class="px-4 pt-3 pb-2 space-y-1">
-            <a href="{{ route('home') }}" class="block px-3 py-2 rounded-md text-base font-medium {{ request()->routeIs('home') ? 'bg-uin-500 text-gold-100' : 'text-uin-50 hover:bg-uin-500/50' }}">
+            <a href="{{ route('home') }}" class="block px-3 py-2 rounded-lg text-sm font-medium {{ request()->routeIs('home') ? 'bg-uin-500 text-gold-100' : 'text-uin-50 hover:bg-uin-500/50' }}">
                 Beranda
             </a>
             @auth
                 @if (Route::has('items.create'))
-                    <a href="{{ route('items.create') }}" class="block px-3 py-2 rounded-md text-base font-medium text-uin-50 hover:bg-uin-500/50">
+                    <a href="{{ route('items.create') }}" class="block px-3 py-2 rounded-lg text-sm font-medium text-uin-50 hover:bg-uin-500/50">
                         Lapor Barang
                     </a>
                 @endif
                 @if (Route::has('my.history'))
-                    <a href="{{ route('my.history') }}" class="block px-3 py-2 rounded-md text-base font-medium {{ request()->routeIs(['my.history', 'my.items']) ? 'bg-uin-500 text-gold-100' : 'text-uin-50 hover:bg-uin-500/50' }}">
+                    <a href="{{ route('my.history') }}" class="block px-3 py-2 rounded-lg text-sm font-medium {{ request()->routeIs(['my.history', 'my.items']) ? 'bg-uin-500 text-gold-100' : 'text-uin-50 hover:bg-uin-500/50' }}">
                         Riwayat Saya
                     </a>
                 @endif
                 @if (Auth::user()->isAdmin())
-                    <a href="/admin" class="block px-3 py-2 rounded-md text-base font-semibold bg-gold-500 text-ink hover:bg-gold-500/90 my-2">
+                    <a href="/admin" class="block px-3 py-2 rounded-lg text-sm font-semibold bg-gold-500 text-ink hover:bg-gold-500/90 my-2">
                         Panel Admin
                     </a>
                 @endif
@@ -104,16 +104,16 @@
 
         @auth
             <!-- Info Pengguna Mobile -->
-            <div class="pt-4 pb-3 border-t border-uin-500/40 px-4">
+            <div class="pt-3 pb-3 border-t border-uin-500/40 px-4 bg-uin-700/80">
                 <div class="text-sm font-semibold text-white">{{ Auth::user()->name }}</div>
-                <div class="text-xs text-gold-100 uppercase tracking-wider">{{ Auth::user()->role }} &bull; {{ Auth::user()->username }}</div>
+                <div class="text-[11px] text-gold-100 uppercase tracking-wider">{{ Auth::user()->role }} &bull; {{ Auth::user()->username }}</div>
                 @if(Auth::user()->prodi)
-                    <div class="text-xs text-uin-50/80 mt-0.5">{{ Auth::user()->prodi }}</div>
+                    <div class="text-[11px] text-uin-50/80 mt-0.5">{{ Auth::user()->prodi }}</div>
                 @endif
                 <div class="mt-3">
                     <form method="POST" action="{{ route('logout') }}">
                         @csrf
-                        <button type="submit" class="w-full text-left px-3 py-2 rounded-md text-sm font-medium bg-red-600/80 text-white hover:bg-red-600 transition-colors">
+                        <button type="submit" class="w-full text-center py-2 px-3 rounded-lg text-xs font-semibold bg-rose-600/90 text-white hover:bg-rose-600 transition-colors">
                             Keluar dari Akun
                         </button>
                     </form>
@@ -121,7 +121,7 @@
             </div>
         @else
             <div class="p-4 border-t border-uin-500/40">
-                <a href="{{ route('login') }}" class="block w-full text-center py-2 px-4 rounded-md font-semibold bg-gold-500 text-ink hover:bg-gold-500/90">
+                <a href="{{ route('login') }}" class="block w-full text-center py-2 px-4 rounded-xl font-semibold bg-gold-500 text-ink hover:bg-gold-500/90 text-sm shadow-sm">
                     Masuk Portal
                 </a>
             </div>
