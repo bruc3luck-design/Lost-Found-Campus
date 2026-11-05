@@ -11,9 +11,12 @@
                 <span class="text-ink font-semibold truncate max-w-[200px]">{{ $item->judul }}</span>
             </div>
 
-            <a href="{{ url()->previous() !== url()->current() ? url()->previous() : route('home') }}"
-               class="text-xs font-medium text-uin-500 hover:text-uin-700 underline shrink-0">
-                &larr; Kembali
+            <a href="{{ route('home') }}"
+               class="text-xs font-semibold text-uin-500 hover:text-uin-700 flex items-center shrink-0">
+                <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
+                </svg>
+                Kembali ke Beranda
             </a>
         </div>
     </x-slot>
