@@ -9,10 +9,11 @@ use Illuminate\Support\Facades\Route;
 |--------------------------------------------------------------------------
 */
 
-// Halaman Beranda (Akan dikembangkan lengkap pada Fase 3)
-Route::get('/', function () {
-    return view('home');
-})->name('home');
+// Halaman Beranda Publik (Daftar & Pencarian Barang)
+Route::get('/', [ItemController::class, 'index'])->name('home');
+
+// Halaman Detail Barang
+Route::get('/barang/{item}', [ItemController::class, 'show'])->name('items.show');
 
 // Rute yang membutuhkan Autentikasi Civitas Kampus
 Route::middleware('auth')->group(function () {

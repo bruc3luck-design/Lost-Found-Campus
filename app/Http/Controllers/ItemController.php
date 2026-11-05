@@ -16,12 +16,66 @@ use Illuminate\View\View;
 class ItemController extends Controller
 {
     /**
+     * Tampilkan halaman beranda: daftar barang dengan tab, pencarian, dan filter.
+     */
+    public function index(Request $request): View
+    {
+        $tipeAktif = $request->input('tipe', 'hilang');
+        if (! in_array($tipeAktif, ['hilang', 'temuan'], true)) {
+            $tipeAktif = 'hilang';
+        }
+
+        // Query scope berantai dengan eager loading
+        $items = Item::query()
+            ->tampil()
+            ->tipe($tipeAktif)
+            ->cari($request->input('q'))
+            ->kategori($request->filled('kategori') ? (int) $request->input('kategori') : null)
+            ->lokasi($request->filled('lokasi') ? (int) $request->input('lokasi') : null)
+            ->antara($request->input('dari'), $request->input('sampai'))
+            ->with(['category', 'location', 'pickupPoint', 'user'])
+            ->latest('tanggal')
+            ->latest('id')
+            ->paginate(12)
+            ->withQueryString();
+
+        // Hitung total laporan terbuka untuk badge tab
+        $countHilang = Item::tampil()->tipe('hilang')->where('status', 'hilang')->count();
+        $countTemuan = Item::tampil()->tipe('temuan')->where('status', 'ditemukan')->count();
+
+        $categories = Category::orderBy('nama')->get();
+        $locations  = Location::orderBy('nama')->get();
+
+        return view('home', compact(
+            'items',
+            'tipeAktif',
+            'countHilang',
+            'countTemuan',
+            'categories',
+            'locations'
+        ));
+    }
+
+    /**
+     * Tampilkan detail lengkap barang.
+     */
+    public function show(Item $item): View
+    {
+        Gate::authorize('view', $item);
+
+        $item->load(['user', 'category', 'location', 'pickupPoint'])
+             ->loadCount('claims');
+
+        return view('items.show', compact('item'));
+    }
+
+    /**
      * Tampilkan formulir pelaporan barang baru.
      */
     public function create(Request $request): View
     {
-        $categories = Category::orderBy('nama')->get();
-        $locations = Location::orderBy('nama')->get();
+        $categories   = Category::orderBy('nama')->get();
+        $locations    = Location::orderBy('nama')->get();
         $pickupPoints = Location::titikPengambilan()->orderBy('nama')->get();
 
         return view('items.create', compact('categories', 'locations', 'pickupPoints'));
@@ -40,14 +94,13 @@ class ItemController extends Controller
             $fotoPath = $request->file('foto')->store('items', 'public');
         }
 
-        // Tentukan status awal sesuai spesifikasi
-        // Laporan hilang -> "hilang"; laporan temuan -> "ditemukan"
+        // Status awal: hilang -> "hilang"; temuan -> "ditemukan"
         $statusAwal = $validated['tipe'] === 'hilang' ? 'hilang' : 'ditemukan';
 
         // Titik pengambilan hanya disimpan jika tipe adalah temuan
         $pickupPointId = $validated['tipe'] === 'temuan' ? $validated['pickup_point_id'] : null;
 
-        // Jangan pernah percaya user_id dari request (ambil dari pengguna terautentikasi)
+        // Jangan pernah percaya user_id dari request (selalu dari auth()->id())
         $item = Item::create([
             'user_id'         => auth()->id(),
             'tipe'            => $validated['tipe'],
@@ -91,8 +144,8 @@ class ItemController extends Controller
     {
         Gate::authorize('update', $item);
 
-        $categories = Category::orderBy('nama')->get();
-        $locations = Location::orderBy('nama')->get();
+        $categories   = Category::orderBy('nama')->get();
+        $locations    = Location::orderBy('nama')->get();
         $pickupPoints = Location::titikPengambilan()->orderBy('nama')->get();
 
         return view('items.edit', compact('item', 'categories', 'locations', 'pickupPoints'));
@@ -106,7 +159,7 @@ class ItemController extends Controller
         Gate::authorize('update', $item);
 
         $validated = $request->validated();
-        $fotoPath = $item->foto;
+        $fotoPath  = $item->foto;
 
         // Opsi hapus foto lama
         if ($request->boolean('hapus_foto') && $fotoPath) {
