@@ -1,0 +1,13 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+    --color-uin-50: #E6F2EC;
+    --color-uin-500: #0B5D3B;
+    --color-uin-700: #08432C;
+    --color-gold-100: #F6EBD2;
+    --color-gold-500: #B88830;
+    --color-ink: #12261C;
+    --color-paper: #FAFAF6;
+}
