@@ -179,6 +179,15 @@ class Item extends Model
         };
     }
 
+    public function tipeLabel(): string
+    {
+        return match ($this->tipe) {
+            'hilang' => 'Barang Hilang',
+            'temuan' => 'Barang Temuan',
+            default  => ucfirst($this->tipe),
+        };
+    }
+
     public function tipeBadgeClasses(): string
     {
         return match ($this->tipe) {
