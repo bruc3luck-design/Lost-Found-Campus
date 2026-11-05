@@ -130,10 +130,19 @@
                                             <span class="w-2 h-2 rounded-full bg-uin-500 mr-1.5"></span>
                                             Ini adalah laporan Anda sendiri
                                         </span>
-                                        <span class="text-gray-500 font-medium">
-                                            Klaim Masuk: <strong>{{ $item->claims_count }}</strong>
-                                        </span>
+                                        <a href="{{ route('claims.incoming', $item) }}" class="font-semibold text-uin-500 hover:text-uin-700 underline">
+                                            Lihat Klaim Masuk ({{ $item->claims_count }}) &rarr;
+                                        </a>
                                     </div>
+
+                                    @if ($item->status === 'diklaim')
+                                        <form method="POST" action="{{ route('items.returned', $item) }}" onsubmit="return confirm('Apakah Anda yakin barang ini sudah diserahkan/dikembalikan kepada pemilik sah?');">
+                                            @csrf
+                                            <button type="submit" class="w-full py-2.5 px-4 rounded-xl text-xs font-bold text-white bg-emerald-600 hover:bg-emerald-700 shadow-sm transition-colors">
+                                                &check; Tandai Barang Telah Dikembalikan
+                                            </button>
+                                        </form>
+                                    @endif
 
                                     <div class="flex flex-wrap items-center gap-2">
                                         <!-- Tombol Edit -->

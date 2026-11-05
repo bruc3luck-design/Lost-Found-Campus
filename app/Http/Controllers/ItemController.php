@@ -213,4 +213,20 @@ class ItemController extends Controller
             ->route('my.items')
             ->with('success', "Laporan \"{$judul}\" telah berhasil dihapus.");
     }
+
+    /**
+     * Tandai barang telah berhasil dikembalikan / diserahkan kepada pemilik sah.
+     */
+    public function markAsReturned(Item $item): RedirectResponse
+    {
+        Gate::authorize('update', $item);
+
+        $item->update([
+            'status' => 'dikembalikan',
+        ]);
+
+        return redirect()
+            ->back()
+            ->with('success', "Barang \"{$item->judul}\" berhasil ditandai telah Dikembalikan! Seluruh alur pelaporan telah selesai.");
+    }
 }

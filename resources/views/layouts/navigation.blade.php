@@ -26,8 +26,8 @@
                                 Lapor Barang
                             </a>
                         @endif
-                        @if (Route::has('my.items'))
-                            <a href="{{ route('my.items') }}" class="px-3 py-2 rounded-lg text-sm font-medium text-uin-50 hover:bg-uin-700/60 transition-colors">
+                        @if (Route::has('my.history'))
+                            <a href="{{ route('my.history') }}" class="px-3 py-2 rounded-lg text-sm font-medium transition-colors {{ request()->routeIs(['my.history', 'my.items']) ? 'bg-uin-700 text-gold-100' : 'text-uin-50 hover:bg-uin-700/60' }}">
                                 Riwayat Saya
                             </a>
                         @endif
@@ -89,8 +89,8 @@
                         Lapor Barang
                     </a>
                 @endif
-                @if (Route::has('my.items'))
-                    <a href="{{ route('my.items') }}" class="block px-3 py-2 rounded-md text-base font-medium text-uin-50 hover:bg-uin-500/50">
+                @if (Route::has('my.history'))
+                    <a href="{{ route('my.history') }}" class="block px-3 py-2 rounded-md text-base font-medium {{ request()->routeIs(['my.history', 'my.items']) ? 'bg-uin-500 text-gold-100' : 'text-uin-50 hover:bg-uin-500/50' }}">
                         Riwayat Saya
                     </a>
                 @endif

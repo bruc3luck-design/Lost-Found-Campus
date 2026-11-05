@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\ClaimController;
+use App\Http\Controllers\HistoryController;
 use App\Http\Controllers\ItemController;
 use Illuminate\Support\Facades\Route;
 
@@ -26,6 +28,17 @@ Route::middleware('auth')->group(function () {
     Route::get('/laporan/{item}/edit', [ItemController::class, 'edit'])->name('items.edit');
     Route::put('/laporan/{item}', [ItemController::class, 'update'])->name('items.update');
     Route::delete('/laporan/{item}', [ItemController::class, 'destroy'])->name('items.destroy');
+    Route::post('/laporan/{item}/dikembalikan', [ItemController::class, 'markAsReturned'])->name('items.returned');
+
+    // Pengajuan & Proses Klaim
+    Route::get('/barang/{item}/klaim', [ClaimController::class, 'create'])->name('claims.create');
+    Route::post('/barang/{item}/klaim', [ClaimController::class, 'store'])->name('claims.store');
+    Route::get('/laporan/{item}/klaim-masuk', [ClaimController::class, 'incoming'])->name('claims.incoming');
+    Route::post('/klaim/{claim}/setujui', [ClaimController::class, 'approve'])->name('claims.approve');
+    Route::post('/klaim/{claim}/tolak', [ClaimController::class, 'reject'])->name('claims.reject');
+
+    // Halaman Riwayat Saya (Tab Laporan Saya & Klaim Saya)
+    Route::get('/riwayat', [HistoryController::class, 'index'])->name('my.history');
 });
 
 // File rute autentikasi portal (login & logout)
