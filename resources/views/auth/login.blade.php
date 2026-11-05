@@ -112,9 +112,9 @@
                         Akun Dummy Tersedia (Password: 123)
                     </div>
                     <div class="space-y-1.5 text-xs text-gray-600 bg-paper p-3 rounded-lg border border-gray-200">
-                        <div>&bull; <strong>2281050030</strong> – Langit Kala Fajar (Mahasiswa)</div>
-                        <div>&bull; <strong>2281050031</strong> – Rindu Senja (Mahasiswa)</div>
-                        <div>&bull; <strong>198810112011012019</strong> – Bintang Hadar (Dosen / Admin)</div>
+                        <div>&bull; <strong>2281050030</strong> – Gamine (Mahasiswa)</div>
+                        <div>&bull; <strong>2281050031</strong> – Gamine 2 (Mahasiswa)</div>
+                        <div>&bull; <strong>198810112011012019</strong> – Gamine (Dosen Admin)</div>
                     </div>
                 </div>
             @endif

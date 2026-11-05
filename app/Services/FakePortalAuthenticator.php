@@ -18,7 +18,7 @@ class FakePortalAuthenticator implements PortalAuthenticator
     private array $users = [
         '2281050030' => [
             'username' => '2281050030',
-            'nama'     => 'LANGIT KALA FAJAR',
+            'nama'     => 'Gamine',
             'role'     => 'mahasiswa',
             'fakultas' => 'ILMU TARBIYAH DAN KEGURUAN',
             'prodi'    => 'TADRIS MATEMATIKA',
@@ -26,7 +26,7 @@ class FakePortalAuthenticator implements PortalAuthenticator
         ],
         '2281050031' => [
             'username' => '2281050031',
-            'nama'     => 'RINDU SENJA',
+            'nama'     => 'Gamine 2',
             'role'     => 'mahasiswa',
             'fakultas' => 'SYARIAH',
             'prodi'    => 'HUKUM KELUARGA ISLAM',
@@ -34,7 +34,7 @@ class FakePortalAuthenticator implements PortalAuthenticator
         ],
         '198810112011012019' => [
             'username' => '198810112011012019',
-            'nama'     => 'BINTANG HADAR',
+            'nama'     => 'Gamine (Dosen Admin)',
             'role'     => 'dosen',
             'fakultas' => 'ILMU TARBIYAH DAN KEGURUAN',
             'prodi'    => 'S1 - INFORMATIKA',

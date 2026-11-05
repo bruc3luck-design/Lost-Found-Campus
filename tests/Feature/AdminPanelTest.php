@@ -23,7 +23,7 @@ class AdminPanelTest extends TestCase
 
         $this->adminUser = User::create([
             'username' => '198810112011012019',
-            'name' => 'BINTANG HADAR',
+            'name' => 'Gamine (Dosen Admin)',
             'role' => 'dosen',
             'fakultas' => 'ILMU TARBIYAH DAN KEGURUAN',
             'prodi' => 'S1 - INFORMATIKA',
@@ -33,7 +33,7 @@ class AdminPanelTest extends TestCase
 
         $this->regularUser = User::create([
             'username' => '2281050030',
-            'name' => 'LANGIT KALA FAJAR',
+            'name' => 'Gamine',
             'role' => 'mahasiswa',
             'fakultas' => 'ILMU TARBIYAH DAN KEGURUAN',
             'prodi' => 'TADRIS MATEMATIKA',
@@ -131,6 +131,6 @@ class AdminPanelTest extends TestCase
         $response = $this->actingAs($this->adminUser)->get('/admin/claims');
         $response->assertStatus(200);
         $response->assertSee('Tas Ransel Abu-abu');
-        $response->assertSee('LANGIT KALA FAJAR');
+        $response->assertSee('Gamine');
     }
 }
