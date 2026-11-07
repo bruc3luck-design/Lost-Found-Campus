@@ -36,7 +36,10 @@ return [
     ],
 
     'portal' => [
-        'driver' => env('PORTAL_DRIVER', 'fake'),
+        'driver'        => env('PORTAL_DRIVER', 'fake'),
+        'bridge_url'    => env('PORTAL_BRIDGE_URL'),
+        'bridge_secret' => env('PORTAL_BRIDGE_SECRET'),
+        'timeout'       => env('PORTAL_TIMEOUT', 10),
     ],
 
 ];

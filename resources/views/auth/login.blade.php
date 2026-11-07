@@ -123,17 +123,46 @@
                 </div>
             </form>
 
-            <!-- Informasi Akun Dummy untuk Pengembangan -->
+            <!-- Informasi & Tombol Demo Akun Otomatis -->
             @if (config('services.portal.driver') === 'fake')
-                <div class="mt-6 pt-5 border-t border-dashed border-gray-200">
-                    <div class="text-[11px] font-semibold text-gray-500 uppercase tracking-wider mb-2 flex items-center">
-                        <span class="w-2 h-2 rounded-full bg-amber-500 mr-1.5 animate-pulse"></span>
-                        Akun Dummy Tersedia (Password: 123)
+                <div class="mt-6 pt-5 border-t border-dashed border-gray-200" x-data>
+                    <div class="text-[11px] font-semibold text-gray-500 uppercase tracking-wider mb-2 flex items-center justify-between">
+                        <span class="flex items-center">
+                            <span class="w-2 h-2 rounded-full bg-amber-500 mr-1.5 animate-pulse"></span>
+                            Mode Demo Akun (Klik untuk Isi Cepat)
+                        </span>
+                        <span class="text-[10px] text-gray-400 font-normal">Pass: 123</span>
                     </div>
-                    <div class="space-y-1.5 text-xs text-gray-600 bg-paper p-3 rounded-lg border border-gray-200">
-                        <div>&bull; <strong>2281050030</strong> – Gamine (Mahasiswa)</div>
-                        <div>&bull; <strong>2281050031</strong> – Gamine 2 (Mahasiswa)</div>
-                        <div>&bull; <strong>198810112011012019</strong> – Gamine (Dosen Admin)</div>
+                    <div class="grid grid-cols-1 gap-1.5 text-xs">
+                        <button type="button"
+                                @click="document.getElementById('username').value = '2281050030'; document.getElementById('password').value = '123';"
+                                class="w-full text-left p-2.5 rounded-xl border border-gray-200 hover:border-uin-500 hover:bg-uin-50/50 transition-colors flex items-center justify-between group">
+                            <div>
+                                <span class="font-semibold text-ink group-hover:text-uin-500">2281050030</span>
+                                <span class="text-gray-500 text-[11px] ml-1">· Gamine (Mahasiswa)</span>
+                            </div>
+                            <span class="text-[10px] font-medium text-uin-700 bg-uin-50 px-2 py-0.5 rounded-md border border-uin-200">Gunakan</span>
+                        </button>
+
+                        <button type="button"
+                                @click="document.getElementById('username').value = '2281050031'; document.getElementById('password').value = '123';"
+                                class="w-full text-left p-2.5 rounded-xl border border-gray-200 hover:border-uin-500 hover:bg-uin-50/50 transition-colors flex items-center justify-between group">
+                            <div>
+                                <span class="font-semibold text-ink group-hover:text-uin-500">2281050031</span>
+                                <span class="text-gray-500 text-[11px] ml-1">· Gamine 2 (Mahasiswa)</span>
+                            </div>
+                            <span class="text-[10px] font-medium text-uin-700 bg-uin-50 px-2 py-0.5 rounded-md border border-uin-200">Gunakan</span>
+                        </button>
+
+                        <button type="button"
+                                @click="document.getElementById('username').value = '198810112011012019'; document.getElementById('password').value = '123';"
+                                class="w-full text-left p-2.5 rounded-xl border border-gold-300 bg-gold-50/30 hover:border-gold-500 hover:bg-gold-50 transition-colors flex items-center justify-between group">
+                            <div>
+                                <span class="font-semibold text-ink group-hover:text-gold-700">198810112011012019</span>
+                                <span class="text-gold-700 text-[11px] ml-1 font-medium">· Admin Dosen (/admin)</span>
+                            </div>
+                            <span class="text-[10px] font-medium text-gold-800 bg-gold-100 px-2 py-0.5 rounded-md border border-gold-300">Gunakan</span>
+                        </button>
                     </div>
                 </div>
             @endif

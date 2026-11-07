@@ -221,6 +221,12 @@ class ItemController extends Controller
     {
         Gate::authorize('update', $item);
 
+        if ($item->status === 'dikembalikan') {
+            return redirect()
+                ->back()
+                ->with('info', "Barang \"{$item->judul}\" sudah berstatus Dikembalikan sebelumnya.");
+        }
+
         $item->update([
             'status' => 'dikembalikan',
         ]);

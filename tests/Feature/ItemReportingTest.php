@@ -303,7 +303,7 @@ class ItemReportingTest extends TestCase
         $delResponse = $this->delete(route('items.destroy', $item));
         $delResponse->assertRedirect(route('my.items'));
 
-        $this->assertDatabaseMissing('items', ['id' => $item->id]);
+        $this->assertSoftDeleted('items', ['id' => $item->id]);
     }
 
     public function test_menghapus_laporan_juga_menghapus_file_foto_dari_storage(): void
@@ -333,6 +333,6 @@ class ItemReportingTest extends TestCase
         $response->assertRedirect(route('my.items'));
 
         Storage::disk('public')->assertMissing($path);
-        $this->assertDatabaseMissing('items', ['id' => $item->id]);
+        $this->assertSoftDeleted('items', ['id' => $item->id]);
     }
 }
