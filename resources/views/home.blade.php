@@ -23,7 +23,7 @@
                     <a href="{{ route('items.create', ['tipe' => 'hilang']) }}"
                        class="flex items-center justify-center px-3 sm:px-4 py-2 sm:py-2.5 rounded-xl text-xs font-semibold bg-rose-600 hover:bg-rose-700 active:scale-95 text-white transition-all shadow-sm">
                         <svg class="w-3.5 h-3.5 mr-1.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>
                         </svg>
                         <span class="truncate">Lapor Hilang</span>
                     </a>
@@ -51,7 +51,7 @@
                class="flex-1 flex items-center justify-center py-2.5 px-3 rounded-xl font-bold text-xs sm:text-sm transition-all {{ $tipeAktif === 'hilang' ? 'bg-white text-rose-600 shadow-sm' : 'text-gray-500 hover:text-gray-800' }}">
                 <span class="w-2 h-2 rounded-full bg-rose-500 mr-2 shrink-0"></span>
                 <span>Barang Hilang</span>
-                <span class="ml-1.5 px-1.5 py-0.5 rounded-full text-[10px] font-extrabold {{ $tipeAktif === 'hilang' ? 'bg-rose-100 text-rose-700' : 'bg-gray-200/70 text-gray-600' }}">
+                <span class="ml-1.5 px-2 py-0.5 rounded-full text-xs font-extrabold {{ $tipeAktif === 'hilang' ? 'bg-rose-100 text-rose-700' : 'bg-gray-200/70 text-gray-600' }}">
                     {{ $countHilang }}
                 </span>
             </a>
@@ -60,7 +60,7 @@
                class="flex-1 flex items-center justify-center py-2.5 px-3 rounded-xl font-bold text-xs sm:text-sm transition-all {{ $tipeAktif === 'temuan' ? 'bg-white text-uin-700 shadow-sm' : 'text-gray-500 hover:text-gray-800' }}">
                 <span class="w-2 h-2 rounded-full bg-uin-500 mr-2 shrink-0"></span>
                 <span>Barang Temuan</span>
-                <span class="ml-1.5 px-1.5 py-0.5 rounded-full text-[10px] font-extrabold {{ $tipeAktif === 'temuan' ? 'bg-uin-50 text-uin-700' : 'bg-gray-200/70 text-gray-600' }}">
+                <span class="ml-1.5 px-2 py-0.5 rounded-full text-xs font-extrabold {{ $tipeAktif === 'temuan' ? 'bg-uin-50 text-uin-700' : 'bg-gray-200/70 text-gray-600' }}">
                     {{ $countTemuan }}
                 </span>
             </a>
@@ -111,12 +111,12 @@
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"/>
                         </svg>
                         Filter
-                        <span x-show="showFilterDetails" class="ml-1 text-[9px]">&#9650;</span>
-                        <span x-show="! showFilterDetails" class="ml-1 text-[9px]">&#9660;</span>
+                        <span x-show="showFilterDetails" class="ml-1 text-[11px]">&#9650;</span>
+                        <span x-show="! showFilterDetails" class="ml-1 text-[11px]">&#9660;</span>
                     </button>
 
                     @if (request()->hasAny(['q', 'kategori', 'lokasi', 'dari', 'sampai']))
-                        <a href="{{ route('home', ['tipe' => $tipeAktif]) }}" class="py-2 px-2.5 text-[11px] font-medium text-rose-600 hover:underline shrink-0">
+                        <a href="{{ route('home', ['tipe' => $tipeAktif]) }}" class="py-2 px-2.5 text-xs font-semibold text-rose-600 hover:underline shrink-0">
                             Reset
                         </a>
                     @endif
@@ -131,7 +131,7 @@
                      class="pt-3 border-t border-gray-100 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2.5 text-xs">
                     <!-- Kategori -->
                     <div>
-                        <label for="kategori" class="block font-semibold text-gray-600 mb-1 text-[11px]">Kategori</label>
+                        <label for="kategori" class="block font-semibold text-gray-700 mb-1 text-xs">Kategori</label>
                         <select name="kategori" id="kategori" class="w-full px-2.5 py-1.5 sm:py-2 rounded-xl border border-gray-300 text-xs text-ink bg-white focus:ring-uin-500 focus:border-uin-500">
                             <option value="">Semua Kategori</option>
                             @foreach ($categories as $cat)
@@ -144,7 +144,7 @@
 
                     <!-- Lokasi -->
                     <div>
-                        <label for="lokasi" class="block font-semibold text-gray-600 mb-1 text-[11px]">Lokasi Kejadian</label>
+                        <label for="lokasi" class="block font-semibold text-gray-700 mb-1 text-xs">Lokasi Kejadian</label>
                         <select name="lokasi" id="lokasi" class="w-full px-2.5 py-1.5 sm:py-2 rounded-xl border border-gray-300 text-xs text-ink bg-white focus:ring-uin-500 focus:border-uin-500">
                             <option value="">Semua Lokasi</option>
                             @foreach ($locations as $loc)
@@ -157,13 +157,13 @@
 
                     <!-- Tanggal Dari -->
                     <div>
-                        <label for="dari" class="block font-semibold text-gray-600 mb-1 text-[11px]">Dari Tanggal</label>
+                        <label for="dari" class="block font-semibold text-gray-700 mb-1 text-xs">Dari Tanggal</label>
                         <input type="date" name="dari" id="dari" value="{{ request('dari') }}" class="w-full px-2.5 py-1.5 sm:py-2 rounded-xl border border-gray-300 text-xs text-ink bg-white focus:ring-uin-500 focus:border-uin-500">
                     </div>
 
                     <!-- Tanggal Sampai -->
                     <div>
-                        <label for="sampai" class="block font-semibold text-gray-600 mb-1 text-[11px]">Sampai Tanggal</label>
+                        <label for="sampai" class="block font-semibold text-gray-700 mb-1 text-xs">Sampai Tanggal</label>
                         <input type="date" name="sampai" id="sampai" value="{{ request('sampai') }}" class="w-full px-2.5 py-1.5 sm:py-2 rounded-xl border border-gray-300 text-xs text-ink bg-white focus:ring-uin-500 focus:border-uin-500">
                     </div>
 
@@ -223,14 +223,14 @@
 
                                 <!-- Badge Status Berwarna di Pojok Kanan Atas Foto -->
                                 <div class="absolute top-2 right-2 sm:top-2.5 sm:right-2.5">
-                                    <span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] sm:text-[11px] font-bold shadow-sm border {{ $item->statusBadgeClasses() }}">
+                                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold shadow-sm border {{ $item->statusBadgeClasses() }}">
                                         {{ $item->statusLabel() }}
                                     </span>
                                 </div>
 
                                 <!-- Badge Tipe di Pojok Kiri Atas Foto -->
                                 <div class="absolute top-2 left-2 sm:top-2.5 sm:left-2.5">
-                                    <span class="inline-flex items-center px-1.5 sm:px-2 py-0.5 rounded-md text-[9px] sm:text-[10px] font-bold shadow-sm uppercase tracking-wider {{ $item->tipe === 'hilang' ? 'bg-rose-600 text-white' : 'bg-uin-500 text-white' }}">
+                                    <span class="inline-flex items-center px-2 py-0.5 rounded-md text-xs font-bold shadow-sm uppercase tracking-wider {{ $item->tipe === 'hilang' ? 'bg-rose-600 text-white' : 'bg-uin-500 text-white' }}">
                                         {{ $item->tipe === 'hilang' ? 'Hilang' : 'Temuan' }}
                                     </span>
                                 </div>
@@ -239,17 +239,17 @@
                             <!-- Konten Kartu -->
                             <div class="p-3.5 sm:p-4">
                                 <!-- Kategori & Tanggal -->
-                                <div class="flex items-center justify-between text-[11px] text-gray-500 mb-1.5">
-                                    <span class="font-medium text-uin-700 bg-uin-50 px-2 py-0.5 rounded-md text-[10px] sm:text-[11px]">
+                                <div class="flex items-center justify-between text-xs text-gray-500 mb-1.5">
+                                    <span class="font-medium text-uin-700 bg-uin-50 px-2 py-0.5 rounded-md text-xs">
                                         {{ $item->category->nama }}
                                     </span>
-                                    <span class="text-[10px] sm:text-[11px]">
+                                    <span class="text-xs">
                                         {{ $item->tanggal->translatedFormat('d M Y') }}
                                     </span>
                                 </div>
 
                                 <!-- Judul Barang -->
-                                <h3 class="font-bold text-sm text-ink group-hover:text-uin-500 transition-colors line-clamp-1 mb-1">
+                                <h3 class="font-bold text-sm sm:text-base text-ink group-hover:text-uin-500 transition-colors line-clamp-1 mb-1">
                                     <a href="{{ route('items.show', $item) }}">
                                         {{ $item->judul }}
                                     </a>
@@ -266,12 +266,12 @@
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
                                     </svg>
-                                    <span class="truncate text-[11px] sm:text-xs">{{ $item->location->nama }}</span>
+                                    <span class="truncate text-xs">{{ $item->location->nama }}</span>
                                 </div>
 
                                 <!-- Titik Pengambilan Khusus Barang Temuan -->
                                 @if ($item->tipe === 'temuan' && $item->pickupPoint)
-                                    <div class="mt-2 pt-2 border-t border-gray-100 flex items-center text-[11px] text-uin-700">
+                                    <div class="mt-2 pt-2 border-t border-gray-100 flex items-center text-xs text-uin-700">
                                         <svg class="w-3.5 h-3.5 text-gold-500 mr-1.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/>
                                         </svg>
@@ -285,7 +285,7 @@
 
                         <!-- Footer Kartu: Pelapor & Link Detail -->
                         <div class="px-3.5 sm:px-4 py-2.5 sm:py-3 bg-paper/60 border-t border-gray-100 flex items-center justify-between text-xs">
-                            <span class="text-[10px] sm:text-[11px] text-gray-500 truncate max-w-[65%]">
+                            <span class="text-xs text-gray-500 truncate max-w-[65%]">
                                 Oleh: <strong class="font-medium text-ink">{{ $item->user->name }}</strong>
                             </span>
                             <a href="{{ route('items.show', $item) }}"

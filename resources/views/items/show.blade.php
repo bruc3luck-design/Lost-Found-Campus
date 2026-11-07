@@ -87,28 +87,28 @@
 
                             <!-- Titik Pengambilan Resmi -->
                             @if ($item->pickupPoint)
-                                <div class="p-2.5 rounded-xl bg-gold-100/60 border border-gold-500/30 flex items-start justify-between">
-                                    <span class="font-semibold text-uin-700">Titik Pengambilan:</span>
-                                    <span class="font-bold text-ink text-right">
+                                <div class="p-3 rounded-xl bg-gold-100/60 border border-gold-500/30 flex items-start justify-between">
+                                    <span class="font-semibold text-uin-700 text-xs">Titik Pengambilan:</span>
+                                    <span class="font-bold text-ink text-right text-xs">
                                         {{ $item->pickupPoint->nama }}
                                         @if($item->pickupPoint->keterangan)
-                                            <div class="text-[10px] text-gray-500 font-normal">({{ $item->pickupPoint->keterangan }})</div>
+                                            <div class="text-xs text-gray-500 font-normal">({{ $item->pickupPoint->keterangan }})</div>
                                         @endif
                                     </span>
                                 </div>
                             @endif
 
                             <!-- Info Pelapor & Prodi -->
-                            <div class="p-3 rounded-xl bg-paper border border-gray-200/80">
-                                <div class="text-[11px] font-semibold text-gray-500 uppercase tracking-wider mb-1">
+                            <div class="p-3.5 rounded-xl bg-paper border border-gray-200/80">
+                                <div class="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1">
                                     Informasi Pelapor
                                 </div>
-                                <div class="font-bold text-ink text-sm">{{ $item->user->name }}</div>
-                                <div class="text-[11px] text-gray-600">
+                                <div class="font-bold text-ink text-sm sm:text-base">{{ $item->user->name }}</div>
+                                <div class="text-xs text-gray-600 mt-0.5">
                                     {{ ucfirst($item->user->role) }} &bull; Program Studi: <strong>{{ $item->user->prodi ?? 'UIN SSC' }}</strong>
                                 </div>
                                 @if($item->user->fakultas)
-                                    <div class="text-[10px] text-gray-500">Fakultas {{ $item->user->fakultas }}</div>
+                                    <div class="text-xs text-gray-500 mt-0.5">Fakultas {{ $item->user->fakultas }}</div>
                                 @endif
                             </div>
                         </div>
@@ -116,7 +116,7 @@
                         <!-- Deskripsi Barang -->
                         <div class="mt-4">
                             <h3 class="text-xs font-bold uppercase tracking-wider text-ink mb-1.5">Deskripsi Lengkap</h3>
-                            <p class="text-xs text-gray-700 leading-relaxed whitespace-pre-line bg-gray-50/60 p-3.5 rounded-xl border border-gray-100">
+                            <p class="text-sm text-gray-700 leading-relaxed whitespace-pre-line bg-gray-50/60 p-3.5 rounded-xl border border-gray-100">
                                 {{ $item->deskripsi }}
                             </p>
                         </div>

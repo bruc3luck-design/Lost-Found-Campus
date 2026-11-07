@@ -6,6 +6,10 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>{{ $title ?? 'Lost & Found Campus – UIN Siber Syekh Nurjati Cirebon' }}</title>
+    <meta name="description" content="Platform resmi pelaporan barang hilang dan temuan civitas akademika UIN Siber Syekh Nurjati Cirebon.">
+    <link rel="icon" type="image/png" href="{{ asset('favicon.png') }}">
+    <link rel="icon" type="image/svg+xml" href="{{ asset('favicon.svg') }}">
+    <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}">
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">
@@ -96,10 +100,8 @@
             <div class="grid grid-cols-1 md:grid-cols-3 gap-5 sm:gap-6">
                 <div>
                     <div class="flex items-center space-x-2 mb-2">
-                        <div class="w-7 h-7 rounded-lg bg-uin-500 flex items-center justify-center border border-gold-500/50 shrink-0">
-                            <svg class="w-4 h-4 text-gold-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
-                            </svg>
+                        <div class="w-8 h-8 rounded-lg bg-white p-1 flex items-center justify-center border border-gold-500/50 shrink-0">
+                            <img src="{{ asset('images/logo-uinssc.png') }}" alt="Logo UIN SSC" class="w-full h-full object-contain">
                         </div>
                         <span class="font-bold text-white text-sm">Lost &amp; Found Campus</span>
                     </div>

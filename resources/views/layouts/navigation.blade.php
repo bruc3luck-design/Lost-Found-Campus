@@ -4,10 +4,8 @@
             <!-- Sisi Kiri: Logo & Navigasi Desktop -->
             <div class="flex items-center space-x-3 sm:space-x-6">
                 <a href="{{ route('home') }}" class="flex items-center space-x-2.5 sm:space-x-3 text-white group">
-                    <div class="w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-uin-700 flex items-center justify-center border border-gold-500/40 shadow-inner group-hover:scale-105 transition-transform shrink-0">
-                        <svg class="w-4 h-4 sm:w-5 sm:h-5 text-gold-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
-                        </svg>
+                    <div class="w-9 h-9 sm:w-11 sm:h-11 rounded-xl bg-white p-1 flex items-center justify-center border border-gold-500/50 shadow-sm group-hover:scale-105 transition-transform shrink-0">
+                        <img src="{{ asset('images/logo-uinssc.png') }}" alt="Logo UIN SSC" class="w-full h-full object-contain">
                     </div>
                     <div>
                         <div class="font-bold text-sm sm:text-base tracking-tight leading-none sm:leading-tight text-white">Lost &amp; Found</div>
