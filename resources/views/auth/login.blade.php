@@ -3,176 +3,273 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Masuk Portal – Lost &amp; Found Campus UIN SSC</title>
-    <meta name="description" content="Masuk ke portal Lost & Found Campus UIN Siber Syekh Nurjati Cirebon.">
-    <link rel="icon" type="image/png" href="{{ asset('favicon.png') }}">
-    <link rel="icon" type="image/svg+xml" href="{{ asset('favicon.svg') }}">
-    <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}">
+    <title>Masuk Portal SSO – Lost &amp; Found Campus UIN Siber Syekh Nurjati</title>
+    <meta name="description" content="Layanan resmi Single Sign-On (SSO) Lost &amp; Found Campus UIN Siber Syekh Nurjati Cirebon.">
+    <link rel="icon" type="image/png" href="{{ asset('images/uin/logo-uinssc.png') }}">
+    <link rel="shortcut icon" href="{{ asset('images/uin/logo-uinssc.png') }}">
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">
-    <link href="https://fonts.bunny.net/css?family=figtree:400,500,600,700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.bunny.net/css?family=figtree:400,500,600,700,800&display=swap" rel="stylesheet" />
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
-<body class="bg-paper text-ink font-sans antialiased min-h-screen flex flex-col justify-center items-center px-4 py-8">
-    <div class="w-full max-w-md">
-        <!-- Brand Header -->
-        <div class="text-center mb-8">
-            <div class="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-white p-2 shadow-md border-2 border-gold-500/40 mb-3">
-                <img src="{{ asset('images/logo-uinssc.png') }}" alt="Logo UIN SSC" class="w-full h-full object-contain">
+<body class="bg-gray-50 text-ink font-sans antialiased h-full">
+    <div class="min-h-screen flex">
+        <!-- ======================================================== -->
+        <!-- SISI KIRI: BRANDING & VISUAL IDENTITY PANEL (DESKTOP)     -->
+        <!-- ======================================================== -->
+        <div class="hidden lg:flex lg:w-1/2 relative bg-gradient-to-br from-[#052818] via-[#0B5D3B] to-[#041F13] text-white p-12 xl:p-16 flex-col justify-between overflow-hidden">
+            <!-- Pola Garis Spiral/Geometris Halus Elegan (seperti referensi) -->
+            <div class="absolute inset-0 pointer-events-none opacity-20">
+                <svg class="w-full h-full" viewBox="0 0 800 800" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="200" cy="200" r="160" stroke="#B88830" stroke-width="1.5" stroke-dasharray="4 4" />
+                    <circle cx="200" cy="200" r="260" stroke="white" stroke-width="1.2" />
+                    <circle cx="200" cy="200" r="380" stroke="white" stroke-width="1" />
+                    <circle cx="200" cy="200" r="500" stroke="#B88830" stroke-width="1.5" stroke-dasharray="6 6" />
+                    <circle cx="200" cy="200" r="640" stroke="white" stroke-width="0.8" />
+                    <path d="M-100 800 C 200 400, 600 600, 900 200" stroke="white" stroke-width="1.2" opacity="0.4" />
+                    <path d="M-50 850 C 250 450, 650 650, 950 250" stroke="#B88830" stroke-width="1.2" opacity="0.3" />
+                </svg>
             </div>
-            <h1 class="text-2xl font-bold tracking-tight text-ink">Lost &amp; Found Campus</h1>
-            <p class="text-xs font-medium text-uin-500 tracking-wide mt-1">UIN SIBER SYEKH NURJATI CIREBON</p>
-            <p class="text-xs text-gray-500 mt-0.5">Pusat Informasi Barang Hilang dan Temuan Kampus</p>
+
+            <!-- Bagian Atas: Simbol Kampus & Badge -->
+            <div class="relative z-10">
+                <div class="flex items-center space-x-3">
+                    <div class="w-14 h-14 rounded-2xl bg-white p-2 shadow-lg flex items-center justify-center border border-gold-500/40">
+                        <img src="{{ asset('images/uin/logo-uinssc.png') }}" alt="Logo UIN SSC" class="h-10 w-auto object-contain">
+                    </div>
+                    <div>
+                        <div class="font-extrabold text-lg tracking-tight uppercase leading-tight text-white">
+                            Lost &amp; Found
+                        </div>
+                        <div class="text-xs font-semibold text-gold-300 tracking-wider">
+                            UIN SIBER SYEKH NURJATI CIREBON
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-4 flex items-center space-x-3 opacity-90">
+                    <img src="{{ asset('images/uin/badge-unggul.png') }}" alt="Akreditasi Unggul" class="h-8 w-auto object-contain">
+                    <img src="{{ asset('images/uin/badge-blu.png') }}" alt="BLU Speed" class="h-6 w-auto object-contain">
+                    <img src="{{ asset('images/uin/badge-ciu.png') }}" alt="Cyber Islamic University" class="h-7 w-auto object-contain">
+                </div>
+            </div>
+
+            <!-- Bagian Tengah: Sambutan & Deskripsi Formal -->
+            <div class="relative z-10 max-w-lg my-auto py-8">
+                <!-- Simbol Bintang Eksklusif (seperti referensi) -->
+                <div class="w-14 h-14 rounded-2xl bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center text-gold-400 mb-6 shadow-inner">
+                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"/>
+                    </svg>
+                </div>
+
+                <h1 class="text-3xl xl:text-4xl font-extrabold tracking-tight leading-tight text-white mb-3">
+                    Selamat Datang! <span class="inline-block animate-wave">👋</span><br>
+                    <span class="text-gold-300">Lost &amp; Found Campus</span>
+                </h1>
+
+                <p class="text-sm xl:text-base text-uin-50/90 leading-relaxed font-normal">
+                    Layanan terpadu pelaporan dan penelusuran barang hilang &amp; temuan resmi civitas akademika UIN Siber Syekh Nurjati Cirebon. Wujudkan ekosistem kampus yang amanah, jujur, dan terpercaya.
+                </p>
+
+                <div class="mt-8 flex items-center space-x-6 text-xs text-uin-50/80">
+                    <div class="flex items-center space-x-2">
+                        <svg class="w-4 h-4 text-gold-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+                        </svg>
+                        <span>Single Sign-On Terintegrasi</span>
+                    </div>
+                    <div class="flex items-center space-x-2">
+                        <svg class="w-4 h-4 text-gold-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
+                        </svg>
+                        <span>Verifikasi Resmi Kampus</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bagian Bawah: Hak Cipta Formal -->
+            <div class="relative z-10 text-xs text-uin-50/70 border-t border-white/10 pt-4 flex items-center justify-between">
+                <span>&copy; {{ date('Y') }} UIN Siber Syekh Nurjati Cirebon. All rights reserved.</span>
+                <span class="text-gold-400/90 font-medium">PUSTIKOM</span>
+            </div>
         </div>
 
-        <!-- Kartu Formulir Login -->
-        <div class="bg-white rounded-2xl shadow-sm border border-gray-200/80 p-6 sm:p-8">
-            <div class="border-b border-gray-100 pb-4 mb-6">
-                <h2 class="text-lg font-bold text-ink">Masuk Akun Portal</h2>
-                <p class="text-xs text-gray-500 mt-0.5">Gunakan NIM (Mahasiswa) atau NIP (Dosen) serta password portal akademik Anda.</p>
+        <!-- ======================================================== -->
+        <!-- SISI KANAN: FORMULIR LOGIN FORMAL                         -->
+        <!-- ======================================================== -->
+        <div class="w-full lg:w-1/2 bg-white flex flex-col justify-between p-6 sm:p-12 xl:p-20 overflow-y-auto">
+            <!-- Header Navigasi Cepat (Mobile Branding & Tombol Kembali) -->
+            <div class="flex items-center justify-between pb-6">
+                <a href="{{ route('home') }}" class="inline-flex items-center text-xs font-semibold text-gray-500 hover:text-uin-500 transition-colors">
+                    <svg class="w-4 h-4 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
+                    </svg>
+                    Kembali ke Beranda
+                </a>
+
+                <!-- Mobile Only Logo -->
+                <div class="lg:hidden flex items-center space-x-2">
+                    <img src="{{ asset('images/uin/logo-uinssc.png') }}" alt="Logo UIN SSC" class="h-8 w-auto object-contain">
+                    <span class="font-extrabold text-xs text-ink uppercase">Lost &amp; Found</span>
+                </div>
             </div>
 
-            <!-- Pesan Error Umum -->
-            @if ($errors->any())
-                <div class="mb-5 p-3.5 rounded-xl bg-rose-50 border border-rose-200 text-rose-800 text-xs">
-                    <div class="font-semibold mb-1">Gagal Masuk:</div>
-                    <ul class="list-disc list-inside space-y-0.5">
-                        @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                </div>
-            @endif
+            <!-- Form Wrapper Container -->
+            <div class="w-full max-w-md mx-auto my-auto py-4">
+                <!-- Branding Mini Form -->
+                <div class="mb-8">
+                    <div class="hidden lg:flex items-center space-x-2.5 mb-6">
+                        <img src="{{ asset('images/uin/logo-uinssc.png') }}" alt="Logo UIN SSC" class="h-10 w-auto object-contain">
+                        <div>
+                            <div class="font-extrabold text-sm text-ink uppercase tracking-tight leading-none">
+                                Lost &amp; Found Campus
+                            </div>
+                            <div class="text-[10px] font-semibold text-uin-500 tracking-wide mt-0.5">
+                                Portal Layanan Resmi Kampus
+                            </div>
+                        </div>
+                    </div>
 
-            <form method="POST" action="{{ route('login') }}" class="space-y-4">
-                @csrf
-
-                <!-- Input Username (NIM / NIP) -->
-                <div>
-                    <label for="username" class="block text-xs font-semibold uppercase tracking-wider text-ink mb-1.5">
-                        NIM / NIP
-                    </label>
-                    <input
-                        type="text"
-                        name="username"
-                        id="username"
-                        value="{{ old('username') }}"
-                        required
-                        autofocus
-                        autocomplete="username"
-                        placeholder="Contoh: 2281050030 atau 198810..."
-                        class="w-full px-3.5 py-2.5 rounded-xl border border-gray-300 text-sm text-ink bg-white focus:outline-none focus:ring-2 focus:ring-uin-500 focus:border-transparent transition-all shadow-sm @error('username') border-rose-400 ring-rose-200 @enderror"
-                    >
+                    <h2 class="text-2xl sm:text-3xl font-extrabold text-ink tracking-tight">
+                        Masuk ke Akun Anda
+                    </h2>
+                    <p class="text-xs sm:text-sm text-gray-500 mt-2 leading-relaxed">
+                        Gunakan NIM (Mahasiswa) atau NIP (Dosen/Tendik) serta password Single Sign-On portal kampus Anda.
+                    </p>
                 </div>
 
-                <!-- Input Password -->
-                <div x-data="{ showPassword: false }">
-                    <label for="password" class="block text-xs font-semibold uppercase tracking-wider text-ink mb-1.5">
-                        Password Portal
-                    </label>
-                    <div class="relative">
-                        <input
-                            :type="showPassword ? 'text' : 'password'"
-                            name="password"
-                            id="password"
-                            required
-                            autocomplete="current-password"
-                            placeholder="Masukkan password portal Anda"
-                            class="w-full pl-3.5 pr-10 py-2.5 rounded-xl border border-gray-300 text-sm text-ink bg-white focus:outline-none focus:ring-2 focus:ring-uin-500 focus:border-transparent transition-all shadow-sm @error('password') border-rose-400 ring-rose-200 @enderror"
-                        >
+                <!-- Pesan Error Validasi -->
+                @if ($errors->any())
+                    <div class="mb-5 p-3.5 rounded-xl bg-rose-50 border border-rose-200 text-rose-800 text-xs">
+                        <div class="font-semibold mb-1 flex items-center">
+                            <svg class="w-4 h-4 mr-1.5 text-rose-600 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                            </svg>
+                            Gagal Masuk:
+                        </div>
+                        <ul class="list-disc list-inside space-y-0.5 text-[11px]">
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
+
+                <!-- Formulir Login Formal -->
+                <form method="POST" action="{{ route('login') }}" class="space-y-4 sm:space-y-5">
+                    @csrf
+
+                    <!-- Input NIM / NIP -->
+                    <div>
+                        <label for="username" class="block text-xs font-bold text-gray-700 uppercase tracking-wider mb-1.5">
+                            NIM / NIP (Nomor Induk)
+                        </label>
+                        <div class="relative">
+                            <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-gray-400">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
+                                </svg>
+                            </div>
+                            <input
+                                type="text"
+                                name="username"
+                                id="username"
+                                value="{{ old('username') }}"
+                                required
+                                autofocus
+                                autocomplete="username"
+                                placeholder="Masukkan NIM atau NIP Anda"
+                                class="w-full pl-10 pr-3.5 py-3 rounded-xl border border-gray-300 text-sm text-ink bg-white focus:outline-none focus:ring-2 focus:ring-uin-500 focus:border-transparent transition-all shadow-xs @error('username') border-rose-400 ring-rose-200 @enderror"
+                            >
+                        </div>
+                    </div>
+
+                    <!-- Input Password -->
+                    <div x-data="{ showPassword: false }">
+                        <label for="password" class="block text-xs font-bold text-gray-700 uppercase tracking-wider mb-1.5">
+                            Password Portal SSO
+                        </label>
+                        <div class="relative">
+                            <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-gray-400">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
+                                </svg>
+                            </div>
+                            <input
+                                :type="showPassword ? 'text' : 'password'"
+                                name="password"
+                                id="password"
+                                required
+                                autocomplete="current-password"
+                                placeholder="Masukkan password portal Anda"
+                                class="w-full pl-10 pr-10 py-3 rounded-xl border border-gray-300 text-sm text-ink bg-white focus:outline-none focus:ring-2 focus:ring-uin-500 focus:border-transparent transition-all shadow-xs @error('password') border-rose-400 ring-rose-200 @enderror"
+                            >
+                            <button
+                                type="button"
+                                @click="showPassword = !showPassword"
+                                class="absolute inset-y-0 right-0 pr-3.5 flex items-center text-gray-400 hover:text-gray-600 focus:outline-none"
+                                tabindex="-1"
+                                aria-label="Toggle password visibility"
+                            >
+                                <svg x-show="!showPassword" class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                                </svg>
+                                <svg x-show="showPassword" x-cloak class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l18 18" />
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Remember Me -->
+                    <div class="flex items-center justify-between pt-1">
+                        <label class="inline-flex items-center cursor-pointer">
+                            <input
+                                type="checkbox"
+                                name="remember"
+                                class="rounded border-gray-300 text-uin-500 shadow-xs focus:ring-uin-500"
+                            >
+                            <span class="ml-2 text-xs text-gray-600">Ingat saya di perangkat ini</span>
+                        </label>
+                    </div>
+
+                    <!-- Tombol Masuk Formal (Hitam Elegan sesuai referensi foto) -->
+                    <div class="pt-2">
                         <button
-                            type="button"
-                            @click="showPassword = !showPassword"
-                            class="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400 hover:text-gray-600 focus:outline-none"
-                            tabindex="-1"
-                            aria-label="Toggle password visibility"
+                            type="submit"
+                            class="w-full py-3 px-4 rounded-xl text-sm font-bold text-white bg-gray-900 hover:bg-black active:scale-[0.99] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-900 transition-all shadow-sm flex items-center justify-center space-x-2"
                         >
-                            <svg x-show="!showPassword" class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
-                            </svg>
-                            <svg x-show="showPassword" x-cloak class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l18 18" />
+                            <span>Masuk Sekarang</span>
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
                             </svg>
                         </button>
                     </div>
+                </form>
+
+                <!-- Informasi Bantuan Resmi Kampus -->
+                <div class="mt-8 pt-6 border-t border-gray-100 text-center text-xs text-gray-500">
+                    <p class="leading-relaxed">
+                        Mengalami kendala saat masuk akun portal?
+                    </p>
+                    <a href="https://uinssc.ac.id" target="_blank" rel="noopener noreferrer" class="mt-1 inline-flex items-center font-bold text-uin-700 hover:underline">
+                        <span>Layanan Helpdesk PUSTIKOM UIN SSC</span>
+                        <svg class="w-3.5 h-3.5 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
+                        </svg>
+                    </a>
                 </div>
+            </div>
 
-                <!-- Remember Me -->
-                <div class="flex items-center justify-between pt-1">
-                    <label class="inline-flex items-center cursor-pointer">
-                        <input
-                            type="checkbox"
-                            name="remember"
-                            class="rounded border-gray-300 text-uin-500 shadow-sm focus:ring-uin-500"
-                        >
-                        <span class="ml-2 text-xs text-gray-600">Ingat saya di perangkat ini</span>
-                    </label>
-                </div>
-
-                <!-- Tombol Submit -->
-                <div class="pt-2">
-                    <button
-                        type="submit"
-                        class="w-full flex justify-center items-center py-2.5 px-4 border border-transparent rounded-xl shadow-sm text-sm font-semibold text-white bg-uin-500 hover:bg-uin-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-uin-500 transition-colors"
-                    >
-                        Masuk ke Sistem
-                    </button>
-                </div>
-            </form>
-
-            <!-- Informasi & Tombol Demo Akun Otomatis -->
-            @if (config('services.portal.driver') === 'fake')
-                <div class="mt-6 pt-5 border-t border-dashed border-gray-200" x-data>
-                    <div class="text-[11px] font-semibold text-gray-500 uppercase tracking-wider mb-2 flex items-center justify-between">
-                        <span class="flex items-center">
-                            <span class="w-2 h-2 rounded-full bg-amber-500 mr-1.5 animate-pulse"></span>
-                            Mode Demo Akun (Klik untuk Isi Cepat)
-                        </span>
-                        <span class="text-[10px] text-gray-400 font-normal">Pass: 123</span>
-                    </div>
-                    <div class="grid grid-cols-1 gap-1.5 text-xs">
-                        <button type="button"
-                                @click="document.getElementById('username').value = '2281050030'; document.getElementById('password').value = '123';"
-                                class="w-full text-left p-2.5 rounded-xl border border-gray-200 hover:border-uin-500 hover:bg-uin-50/50 transition-colors flex items-center justify-between group">
-                            <div>
-                                <span class="font-semibold text-ink group-hover:text-uin-500">2281050030</span>
-                                <span class="text-gray-500 text-[11px] ml-1">· Gamine (Mahasiswa)</span>
-                            </div>
-                            <span class="text-[10px] font-medium text-uin-700 bg-uin-50 px-2 py-0.5 rounded-md border border-uin-200">Gunakan</span>
-                        </button>
-
-                        <button type="button"
-                                @click="document.getElementById('username').value = '2281050031'; document.getElementById('password').value = '123';"
-                                class="w-full text-left p-2.5 rounded-xl border border-gray-200 hover:border-uin-500 hover:bg-uin-50/50 transition-colors flex items-center justify-between group">
-                            <div>
-                                <span class="font-semibold text-ink group-hover:text-uin-500">2281050031</span>
-                                <span class="text-gray-500 text-[11px] ml-1">· Gamine 2 (Mahasiswa)</span>
-                            </div>
-                            <span class="text-[10px] font-medium text-uin-700 bg-uin-50 px-2 py-0.5 rounded-md border border-uin-200">Gunakan</span>
-                        </button>
-
-                        <button type="button"
-                                @click="document.getElementById('username').value = '198810112011012019'; document.getElementById('password').value = '123';"
-                                class="w-full text-left p-2.5 rounded-xl border border-gold-300 bg-gold-50/30 hover:border-gold-500 hover:bg-gold-50 transition-colors flex items-center justify-between group">
-                            <div>
-                                <span class="font-semibold text-ink group-hover:text-gold-700">198810112011012019</span>
-                                <span class="text-gold-700 text-[11px] ml-1 font-medium">· Admin Dosen (/admin)</span>
-                            </div>
-                            <span class="text-[10px] font-medium text-gold-800 bg-gold-100 px-2 py-0.5 rounded-md border border-gold-300">Gunakan</span>
-                        </button>
-                    </div>
-                </div>
-            @endif
+            <!-- Mobile Footer -->
+            <div class="lg:hidden text-center text-xs text-gray-400 pt-6">
+                &copy; {{ date('Y') }} UIN Siber Syekh Nurjati Cirebon
+            </div>
         </div>
-
-        <!-- Footer Copyright -->
-        <p class="text-center text-xs text-gray-500 mt-6">
-            &copy; {{ date('Y') }} PUSTIKOM UIN Siber Syekh Nurjati Cirebon.<br>
-            Khusus civitas akademika aktif.
-        </p>
     </div>
 </body>
 </html>
