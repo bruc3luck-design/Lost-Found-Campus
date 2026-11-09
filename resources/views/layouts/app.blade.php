@@ -7,9 +7,8 @@
 
     <title>{{ $title ?? 'Lost & Found Campus – UIN Siber Syekh Nurjati Cirebon' }}</title>
     <meta name="description" content="Platform resmi pelaporan barang hilang dan temuan civitas akademika UIN Siber Syekh Nurjati Cirebon.">
-    <link rel="icon" type="image/png" href="{{ asset('favicon.png') }}">
-    <link rel="icon" type="image/svg+xml" href="{{ asset('favicon.svg') }}">
-    <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}">
+    <link rel="icon" type="image/png" href="{{ asset('images/uin/logo-uinssc.png') }}">
+    <link rel="shortcut icon" href="{{ asset('images/uin/logo-uinssc.png') }}">
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">
@@ -22,8 +21,8 @@
     <!-- Navbar -->
     @include('layouts.navigation')
 
-    <!-- Flash Messages -->
-    <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 w-full mt-3 sm:mt-4">
+    <!-- Flash Messages (Full-width responsive container) -->
+    <div class="w-full max-w-7xl 2xl:max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-8 2xl:px-12 mt-3 sm:mt-4">
         @if (session('success'))
             <div class="mb-3 p-3 sm:p-4 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs sm:text-sm flex items-start space-x-2.5 shadow-xs">
                 <svg class="w-4 h-4 sm:w-5 sm:h-5 text-emerald-600 mt-0.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -46,18 +45,18 @@
     <!-- Header Opsional -->
     @isset($header)
         <header class="bg-white border-b border-gray-200 shadow-xs">
-            <div class="max-w-7xl mx-auto py-3.5 sm:py-5 px-3 sm:px-6 lg:px-8">
+            <div class="w-full max-w-7xl 2xl:max-w-screen-2xl mx-auto py-3.5 sm:py-5 px-4 sm:px-6 lg:px-8 2xl:px-12">
                 {{ $header }}
             </div>
         </header>
     @endisset
 
-    <!-- Konten Utama Halaman -->
-    <main class="flex-1 max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-4 sm:py-6 w-full">
+    <!-- Konten Utama Halaman (Full-width di Desktop Lebar, Responsif di Mobile) -->
+    <main class="flex-1 w-full max-w-7xl 2xl:max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-8 2xl:px-12 py-4 sm:py-6">
         {{ $slot }}
     </main>
 
-    <!-- Bottom Navigation Bar Khusus Mobile (Modern App Feel) -->
+    <!-- Bottom Navigation Bar Khusus Mobile -->
     <div class="sm:hidden fixed bottom-0 inset-x-0 bg-white/95 backdrop-blur-md border-t border-gray-200/80 z-30 px-4 py-2 shadow-lg">
         <div class="flex items-center justify-around">
             <a href="{{ route('home') }}" class="flex flex-col items-center py-1 px-3 text-xs {{ request()->routeIs('home') ? 'text-uin-500 font-bold' : 'text-gray-500 font-medium' }}">
@@ -96,13 +95,11 @@
 
     <!-- Footer Identitas UIN SSC -->
     <footer class="bg-uin-700 text-uin-50 border-t-4 border-gold-500 mt-auto">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
+        <div class="w-full max-w-7xl 2xl:max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-8 2xl:px-12 py-6 sm:py-8">
             <div class="grid grid-cols-1 md:grid-cols-3 gap-5 sm:gap-6">
                 <div>
-                    <div class="flex items-center space-x-2 mb-2">
-                        <div class="w-8 h-8 rounded-lg bg-white p-1 flex items-center justify-center border border-gold-500/50 shrink-0">
-                            <img src="{{ asset('images/logo-uinssc.png') }}" alt="Logo UIN SSC" class="w-full h-full object-contain">
-                        </div>
+                    <div class="flex items-center space-x-2.5 mb-2">
+                        <img src="{{ asset('images/uin/logo-uinssc.png') }}" alt="Logo UIN SSC" class="h-8 w-auto object-contain bg-white rounded-lg p-1">
                         <span class="font-bold text-white text-sm">Lost &amp; Found Campus</span>
                     </div>
                     <p class="text-xs text-uin-50/80 leading-relaxed">
