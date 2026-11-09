@@ -23,8 +23,7 @@ class PortalAuthenticationTest extends TestCase
         $response = $this->get('/login');
 
         $response->assertStatus(200);
-        $response->assertSee('Lost & Found Campus');
-        $response->assertSee('Masuk ke Akun Anda');
+        $response->assertSee('Welcome Back!');
         $response->assertSee('NIM / NIP');
     }
 
