@@ -53,6 +53,85 @@
                         </a>
                     @endif
 
+                    <!-- Dropdown Notifikasi Desktop -->
+                    @php
+                        $unreadNotifCount = Auth::user()->unreadNotifications()->count();
+                        $recentNotifs = Auth::user()->notifications()->take(5)->get();
+                    @endphp
+                    <div class="relative" x-data="{ notifOpen: false }">
+                        <button @click="notifOpen = ! notifOpen"
+                                class="relative p-2 rounded-xl text-gray-600 hover:text-uin-500 hover:bg-gray-50 focus:outline-none transition-colors"
+                                title="Notifikasi">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/>
+                            </svg>
+                            @if ($unreadNotifCount > 0)
+                                <span class="absolute top-1 right-1 flex h-4 min-w-4 px-1 items-center justify-center rounded-full bg-rose-600 text-[10px] font-bold text-white shadow-xs">
+                                    {{ $unreadNotifCount > 9 ? '9+' : $unreadNotifCount }}
+                                </span>
+                            @endif
+                        </button>
+
+                        <div x-show="notifOpen"
+                             @click.outside="notifOpen = false"
+                             x-cloak
+                             x-transition:enter="transition ease-out duration-150"
+                             x-transition:enter-start="opacity-0 scale-95"
+                             x-transition:enter-end="opacity-100 scale-100"
+                             class="absolute right-0 mt-2 w-80 sm:w-96 bg-white rounded-2xl shadow-xl border border-gray-200/80 z-50 overflow-hidden">
+                            
+                            <div class="p-3.5 bg-gray-50/80 border-b border-gray-100 flex items-center justify-between">
+                                <div class="flex items-center gap-1.5">
+                                    <span class="text-xs font-bold text-ink">Notifikasi</span>
+                                    @if ($unreadNotifCount > 0)
+                                        <span class="px-1.5 py-0.5 rounded-full text-[10px] font-extrabold bg-rose-100 text-rose-700">
+                                            {{ $unreadNotifCount }} Baru
+                                        </span>
+                                    @endif
+                                </div>
+                                @if ($unreadNotifCount > 0)
+                                    <form method="POST" action="{{ route('notifications.markAllRead') }}">
+                                        @csrf
+                                        <button type="submit" class="text-[11px] font-semibold text-uin-500 hover:text-uin-700">
+                                            Tandai dibaca
+                                        </button>
+                                    </form>
+                                @endif
+                            </div>
+
+                            <div class="max-h-80 overflow-y-auto divide-y divide-gray-100">
+                                @forelse ($recentNotifs as $notif)
+                                    @php
+                                        $d = $notif->data;
+                                        $isUnread = is_null($notif->read_at);
+                                    @endphp
+                                    <a href="{{ route('notifications.read', $notif->id) }}"
+                                       class="block p-3 text-left transition-colors {{ $isUnread ? 'bg-uin-50/40 hover:bg-uin-50/70' : 'hover:bg-gray-50' }}">
+                                        <div class="flex items-center justify-between gap-1 mb-0.5">
+                                            <span class="text-xs font-bold text-ink line-clamp-1">{{ $d['title'] ?? 'Notifikasi' }}</span>
+                                            <span class="text-[10px] text-gray-400 shrink-0">{{ $notif->created_at->diffForHumans() }}</span>
+                                        </div>
+                                        <p class="text-[11px] text-gray-600 line-clamp-2 leading-relaxed">
+                                            {{ $d['message'] ?? '' }}
+                                        </p>
+                                    </a>
+                                @empty
+                                    <div class="p-6 text-center text-xs text-gray-400">
+                                        Belum ada notifikasi baru
+                                    </div>
+                                @endforelse
+                            </div>
+
+                            <div class="p-2.5 bg-gray-50 border-t border-gray-100 text-center">
+                                <a href="{{ route('notifications.index') }}"
+                                   @click="notifOpen = false"
+                                   class="text-xs font-bold text-uin-500 hover:text-uin-700">
+                                    Lihat Semua Notifikasi &rarr;
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
                     <!-- User Pill & Keluar -->
                     <div class="flex items-center space-x-2 pl-3 ml-2 border-l border-gray-200">
                         <div class="text-right">
@@ -86,8 +165,20 @@
                 @endauth
             </div>
 
-            <!-- Tombol Hamburger Mobile -->
-            <div class="flex items-center md:hidden">
+            <!-- Tombol Hamburger & Notifikasi Mobile -->
+            <div class="flex items-center space-x-1 md:hidden">
+                @auth
+                    <a href="{{ route('notifications.index') }}" class="relative p-2 rounded-xl text-gray-600 hover:text-uin-500 hover:bg-gray-100 transition-colors" title="Notifikasi">
+                        <svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/>
+                        </svg>
+                        @if (Auth::user()->unreadNotifications()->count() > 0)
+                            <span class="absolute top-1 right-1 flex h-4 min-w-4 px-1 items-center justify-center rounded-full bg-rose-600 text-[10px] font-bold text-white shadow-xs">
+                                {{ Auth::user()->unreadNotifications()->count() > 9 ? '9+' : Auth::user()->unreadNotifications()->count() }}
+                            </span>
+                        @endif
+                    </a>
+                @endauth
                 <button @click="open = ! open" class="p-2 rounded-xl text-gray-600 hover:text-uin-500 hover:bg-gray-100 transition-colors">
                     <svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
                         <path :class="{'hidden': open, 'inline-flex': ! open }" class="inline-flex" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
@@ -122,6 +213,14 @@
                         Riwayat Saya
                     </a>
                 @endif
+                <a href="{{ route('notifications.index') }}" class="flex items-center justify-between px-3 py-2 rounded-xl text-sm font-semibold {{ request()->routeIs('notifications.*') ? 'bg-uin-50 text-uin-500' : 'text-gray-700 hover:bg-gray-50' }}">
+                    <span>Notifikasi</span>
+                    @if (Auth::user()->unreadNotifications()->count() > 0)
+                        <span class="px-2 py-0.5 rounded-full text-xs font-bold bg-rose-100 text-rose-700">
+                            {{ Auth::user()->unreadNotifications()->count() }}
+                        </span>
+                    @endif
+                </a>
                 @if (Auth::user()->isAdmin())
                     <a href="/admin" class="block px-3 py-2 rounded-xl text-sm font-bold bg-gold-100 text-amber-900 border border-gold-500/40 my-2">
                         Panel Admin

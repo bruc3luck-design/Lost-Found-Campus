@@ -59,7 +59,7 @@
     <!-- Bottom Navigation Bar Khusus Mobile -->
     <div class="sm:hidden fixed bottom-0 inset-x-0 bg-white/95 backdrop-blur-md border-t border-gray-200/80 z-30 px-4 py-2 shadow-lg">
         <div class="flex items-center justify-around">
-            <a href="{{ route('home') }}" class="flex flex-col items-center py-1 px-3 text-xs {{ request()->routeIs('home') ? 'text-uin-500 font-bold' : 'text-gray-500 font-medium' }}">
+            <a href="{{ route('home') }}" class="flex flex-col items-center py-1 px-2.5 text-xs {{ request()->routeIs('home') ? 'text-uin-500 font-bold' : 'text-gray-500 font-medium' }}">
                 <svg class="w-5 h-5 mb-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/>
                 </svg>
@@ -67,6 +67,20 @@
             </a>
 
             @auth
+                <a href="{{ route('notifications.index') }}" class="relative flex flex-col items-center py-1 px-2.5 text-xs {{ request()->routeIs('notifications.*') ? 'text-uin-500 font-bold' : 'text-gray-500 font-medium' }}">
+                    <div class="relative">
+                        <svg class="w-5 h-5 mb-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/>
+                        </svg>
+                        @if (Auth::user()->unreadNotifications()->count() > 0)
+                            <span class="absolute -top-1 -right-1 flex h-3.5 min-w-3.5 px-0.5 items-center justify-center rounded-full bg-rose-600 text-[9px] font-bold text-white shadow-xs">
+                                {{ Auth::user()->unreadNotifications()->count() > 9 ? '9+' : Auth::user()->unreadNotifications()->count() }}
+                            </span>
+                        @endif
+                    </div>
+                    <span>Notifikasi</span>
+                </a>
+
                 <a href="{{ route('items.create') }}" class="flex flex-col items-center -mt-5">
                     <div class="w-11 h-11 rounded-full bg-uin-500 text-white flex items-center justify-center shadow-lg border-2 border-white active:scale-95 transition-transform">
                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -76,7 +90,7 @@
                     <span class="text-[10px] font-bold text-uin-700 mt-0.5">Lapor</span>
                 </a>
 
-                <a href="{{ route('my.history') }}" class="flex flex-col items-center py-1 px-3 text-xs {{ request()->routeIs(['my.history', 'my.items']) ? 'text-uin-500 font-bold' : 'text-gray-500 font-medium' }}">
+                <a href="{{ route('my.history') }}" class="flex flex-col items-center py-1 px-2.5 text-xs {{ request()->routeIs(['my.history', 'my.items']) ? 'text-uin-500 font-bold' : 'text-gray-500 font-medium' }}">
                     <svg class="w-5 h-5 mb-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
                     </svg>

@@ -3,6 +3,7 @@
 use App\Http\Controllers\ClaimController;
 use App\Http\Controllers\HistoryController;
 use App\Http\Controllers\ItemController;
+use App\Http\Controllers\NotificationController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -39,6 +40,11 @@ Route::middleware('auth')->group(function () {
 
     // Halaman Riwayat Saya (Tab Laporan Saya & Klaim Saya)
     Route::get('/riwayat', [HistoryController::class, 'index'])->name('my.history');
+
+    // Menu Notifikasi
+    Route::get('/notifikasi', [NotificationController::class, 'index'])->name('notifications.index');
+    Route::post('/notifikasi/baca-semua', [NotificationController::class, 'markAllAsRead'])->name('notifications.markAllRead');
+    Route::get('/notifikasi/{id}/baca', [NotificationController::class, 'markAsRead'])->name('notifications.read');
 });
 
 // File rute autentikasi portal (login & logout)

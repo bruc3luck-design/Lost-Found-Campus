@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreClaimRequest;
 use App\Models\Claim;
 use App\Models\Item;
+use App\Notifications\ClaimApprovedNotification;
+use App\Notifications\ClaimRejectedNotification;
+use App\Notifications\NewClaimReceivedNotification;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -75,7 +78,7 @@ class ClaimController extends Controller
             $fotoPath = $request->file('bukti_foto')->store('claims', 'public');
         }
 
-        Claim::create([
+        $claim = Claim::create([
             'item_id'    => $item->id,
             'claimer_id' => auth()->id(),
             'bukti'      => $validated['bukti'],
@@ -83,6 +86,11 @@ class ClaimController extends Controller
             'status'     => 'menunggu',
             'catatan'    => null,
         ]);
+
+        // Kirim notifikasi klaim masuk ke pelapor barang
+        if ($item->user) {
+            $item->user->notify(new NewClaimReceivedNotification($claim));
+        }
 
         return redirect()
             ->route('my.history', ['tab' => 'klaim'])
@@ -121,19 +129,32 @@ class ClaimController extends Controller
             ]);
 
             // 2. Tolak klaim lain yang berstatus menunggu
-            $item->claims()
+            $otherClaims = $item->claims()
                 ->where('id', '!=', $claim->id)
                 ->where('status', 'menunggu')
-                ->update([
+                ->get();
+
+            foreach ($otherClaims as $otherClaim) {
+                $otherClaim->update([
                     'status'  => 'ditolak',
                     'catatan' => 'Laporan telah diklaim dan disetujui untuk pihak lain.',
                 ]);
+
+                if ($otherClaim->claimer) {
+                    $otherClaim->claimer->notify(new ClaimRejectedNotification($otherClaim, 'Laporan telah diklaim dan disetujui untuk pihak lain.'));
+                }
+            }
 
             // 3. Ubah status barang menjadi "diklaim"
             $item->update([
                 'status' => 'diklaim',
             ]);
         });
+
+        // Notifikasi ke penklaim yang disetujui
+        if ($claim->claimer) {
+            $claim->claimer->notify(new ClaimApprovedNotification($claim));
+        }
 
         return redirect()
             ->back()
@@ -151,10 +172,17 @@ class ClaimController extends Controller
             'catatan' => ['nullable', 'string', 'max:500'],
         ]);
 
+        $catatan = $request->input('catatan', 'Bukti yang dilampirkan belum sesuai.');
+
         $claim->update([
             'status'  => 'ditolak',
-            'catatan' => $request->input('catatan', 'Bukti yang dilampirkan belum sesuai.'),
+            'catatan' => $catatan,
         ]);
+
+        // Notifikasi ke penklaim bahwa klaim ditolak
+        if ($claim->claimer) {
+            $claim->claimer->notify(new ClaimRejectedNotification($claim, $catatan));
+        }
 
         return redirect()
             ->back()

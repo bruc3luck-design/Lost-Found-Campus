@@ -1,4 +1,4 @@
-<x-app-layout>
+﻿<x-app-layout>
     <div class="space-y-4 sm:space-y-6">
         <!-- Hero Banner Identitas Kampus (Mobile Compact & Modern) -->
         <div class="bg-gradient-to-br from-uin-700 via-uin-500 to-uin-700 text-white rounded-2xl p-4 sm:p-7 shadow-sm relative overflow-hidden border border-gold-500/30">
@@ -230,12 +230,7 @@
                                     </div>
                                 @endif
 
-                                <!-- Badge Tipe di Pojok Kiri Atas Foto -->
-                                <div class="absolute top-2 left-2 sm:top-2.5 sm:left-2.5">
-                                    <span class="inline-flex items-center px-2 py-0.5 rounded-md text-xs font-bold shadow-sm uppercase tracking-wider {{ $item->tipe === 'hilang' ? 'bg-rose-600 text-white' : 'bg-uin-500 text-white' }}">
-                                        {{ $item->tipe === 'hilang' ? 'Hilang' : 'Temuan' }}
-                                    </span>
-                                </div>
+
                             </a>
 
                             <!-- Konten Kartu -->
