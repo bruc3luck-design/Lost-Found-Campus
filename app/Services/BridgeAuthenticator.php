@@ -8,20 +8,20 @@ use Illuminate\Support\Facades\Log;
 use Throwable;
 
 /**
- * Implementasi autentikasi menggunakan API Portal/SSO Kampus UIN SSC.
- * Digunakan ketika PORTAL_DRIVER=bridge di lingkungan staging atau production.
+ * Implementasi autentikasi menggunakan Ecampuz Bridge API Kampus UIN Siber Syekh Nurjati Cirebon.
+ * Mengintegrasikan autentikasi portal v2 (/api/v2/portal/login) dan profil pengguna (/api/v2/profil).
  */
 class BridgeAuthenticator implements PortalAuthenticator
 {
-    private ?string $apiUrl;
-    private ?string $apiSecret;
+    private string $baseUrl;
+    private ?string $bridgeToken;
     private int $timeout;
 
     public function __construct()
     {
-        $this->apiUrl    = config('services.portal.bridge_url');
-        $this->apiSecret = config('services.portal.bridge_secret');
-        $this->timeout   = (int) config('services.portal.timeout', 10);
+        $this->baseUrl     = rtrim(config('services.portal.base_url', 'https://bridge.uinssc.ac.id/api'), '/');
+        $this->bridgeToken = config('services.portal.bridge_token', 'informatika-bridge-token');
+        $this->timeout     = (int) config('services.portal.timeout', 15);
     }
 
     /**
@@ -31,56 +31,98 @@ class BridgeAuthenticator implements PortalAuthenticator
      */
     public function attempt(string $username, string $password): ?array
     {
-        if (blank($this->apiUrl)) {
-            Log::error('BridgeAuthenticator: PORTAL_BRIDGE_URL belum dikonfigurasi di file .env.');
-            return null;
-        }
-
         try {
-            $request = Http::timeout($this->timeout)
-                ->acceptJson();
+            // 1. Panggil Endpoint Login Portal Kampus v2
+            $loginUrl = "{$this->baseUrl}/v2/portal/login";
 
-            // Jika API kampus membutuhkan Header API Key / Secret Token
-            if (filled($this->apiSecret)) {
-                $request->withToken($this->apiSecret);
-            }
+            $loginResponse = Http::timeout($this->timeout)
+                ->acceptJson()
+                ->post($loginUrl, [
+                    'username' => trim($username),
+                    'password' => $password,
+                ]);
 
-            $response = $request->post($this->apiUrl, [
-                'username' => $username,
-                'password' => $password,
-            ]);
-
-            if (! $response->successful()) {
-                Log::warning('BridgeAuthenticator: Autentikasi gagal atau API merespons dengan status non-200.', [
+            // Jika respons bukan HTTP 200 atau login gagal (HTTP 401/404)
+            if (! $loginResponse->successful()) {
+                Log::info('BridgeAuthenticator: Percobaan login gagal atau kredensial tidak sesuai.', [
                     'username' => $username,
-                    'status'   => $response->status(),
+                    'status'   => $loginResponse->status(),
+                    'response' => $loginResponse->json(),
                 ]);
                 return null;
             }
 
-            $payload = $response->json();
+            $loginPayload = $loginResponse->json();
 
-            // Validasi format kembalian dari API kampus
-            // Mendukung baik struktur { data: { ... } } maupun flat { username: ... }
-            $userData = $payload['data'] ?? $payload;
-
-            if (empty($userData['username']) || empty($userData['nama']) || empty($userData['role'])) {
-                Log::error('BridgeAuthenticator: Respons API kampus tidak memiliki atribut wajib (username, nama, role).', [
-                    'payload' => $payload,
+            if (empty($loginPayload['status']) || empty($loginPayload['data'])) {
+                Log::warning('BridgeAuthenticator: Status respons bukan true atau data kosong.', [
+                    'username' => $username,
+                    'payload'  => $loginPayload,
                 ]);
                 return null;
+            }
+
+            $userData = $loginPayload['data'];
+            $token    = $userData['token'] ?? null;
+            $role     = strtolower((string) ($userData['role'] ?? 'mahasiswa'));
+
+            $fakultas = null;
+            $prodi    = null;
+            $noHp     = null;
+            $nama     = (string) ($userData['nama'] ?? $username);
+
+            // 2. Jika token autentikasi didapat, panggil Endpoint Profil v2 untuk data biodata lengkap
+            if (filled($token)) {
+                try {
+                    $profilUrl = "{$this->baseUrl}/v2/profil";
+                    $profilResponse = Http::timeout($this->timeout)
+                        ->acceptJson()
+                        ->withToken($token)
+                        ->get($profilUrl);
+
+                    if ($profilResponse->successful()) {
+                        $profilPayload = $profilResponse->json();
+                        $profilData    = $profilPayload['data'] ?? [];
+
+                        if (filled($profilData)) {
+                            // Nama resmi dari profil
+                            if (! empty($profilData['nama'])) {
+                                $nama = (string) $profilData['nama'];
+                            }
+
+                            // Nomor handphone / WhatsApp untuk koordinasi serah terima barang
+                            $noHp = $profilData['no_hp'] ?? $profilData['no_telp'] ?? null;
+
+                            // Fakultas & Prodi berdasarkan role
+                            if ($role === 'dosen') {
+                                $fakultas = $profilData['fakultas'] ?? null;
+                                $prodi    = $profilData['program_studi'] ?? null;
+                            } else {
+                                $fakultas = $profilData['fakultas_nama'] ?? null;
+                                $prodi    = $profilData['program_studi_nama'] ?? null;
+                            }
+                        }
+                    } else {
+                        Log::warning('BridgeAuthenticator: Gagal mengambil data profil, menggunakan data dasar login.', [
+                            'username' => $username,
+                            'status'   => $profilResponse->status(),
+                        ]);
+                    }
+                } catch (Throwable $pe) {
+                    Log::warning('BridgeAuthenticator: Exception saat mengambil profil pengguna: ' . $pe->getMessage());
+                }
             }
 
             return [
-                'username' => (string) $userData['username'],
-                'nama'     => (string) $userData['nama'],
-                'role'     => strtolower((string) $userData['role']),
-                'fakultas' => $userData['fakultas'] ?? null,
-                'prodi'    => $userData['prodi'] ?? null,
-                'no_hp'    => $userData['no_hp'] ?? $userData['phone'] ?? null,
+                'username' => (string) ($userData['username'] ?? $username),
+                'nama'     => $nama,
+                'role'     => $role,
+                'fakultas' => $fakultas,
+                'prodi'    => $prodi,
+                'no_hp'    => $noHp,
             ];
         } catch (Throwable $e) {
-            Log::error('BridgeAuthenticator: Gagal terhubung ke API Portal Kampus: '.$e->getMessage(), [
+            Log::error('BridgeAuthenticator: Gagal terhubung ke Ecampuz Bridge API UIN SSC: ' . $e->getMessage(), [
                 'exception' => $e,
             ]);
             return null;

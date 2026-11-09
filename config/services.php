@@ -36,10 +36,10 @@ return [
     ],
 
     'portal' => [
-        'driver'        => env('PORTAL_DRIVER', 'fake'),
-        'bridge_url'    => env('PORTAL_BRIDGE_URL'),
-        'bridge_secret' => env('PORTAL_BRIDGE_SECRET'),
-        'timeout'       => env('PORTAL_TIMEOUT', 10),
+        'driver'       => env('PORTAL_DRIVER', 'bridge'),
+        'base_url'     => env('PORTAL_BASE_URL', 'https://bridge.uinssc.ac.id/api'),
+        'bridge_token' => env('PORTAL_BRIDGE_TOKEN', 'informatika-bridge-token'),
+        'timeout'      => env('PORTAL_TIMEOUT', 15),
     ],
 
 ];
