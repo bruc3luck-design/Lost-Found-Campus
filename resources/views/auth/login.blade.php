@@ -19,8 +19,8 @@
         <!-- ======================================================== -->
         <!-- SISI KIRI: BRANDING & VISUAL IDENTITY PANEL (DESKTOP)     -->
         <!-- ======================================================== -->
-        <div class="hidden lg:flex lg:w-1/2 relative bg-gradient-to-br from-[#052818] via-[#0B5D3B] to-[#041F13] text-white p-12 xl:p-16 flex-col justify-between overflow-hidden">
-            <!-- Pola Garis Spiral/Geometris Halus Elegan (seperti referensi) -->
+        <div class="hidden lg:flex lg:w-1/2 relative bg-gradient-to-br from-[#042013] via-[#084D31] to-[#03190F] text-white p-12 xl:p-16 flex-col justify-between overflow-hidden">
+            <!-- Pola Garis Spiral/Geometris Halus Elegan -->
             <div class="absolute inset-0 pointer-events-none opacity-20">
                 <svg class="w-full h-full" viewBox="0 0 800 800" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <circle cx="200" cy="200" r="160" stroke="#B88830" stroke-width="1.5" stroke-dasharray="4 4" />
@@ -33,59 +33,60 @@
                 </svg>
             </div>
 
-            <!-- Bagian Atas: Simbol Kampus & Badge -->
-            <div class="relative z-10">
-                <div class="flex items-center space-x-3">
-                    <div class="w-14 h-14 rounded-2xl bg-white p-2 shadow-lg flex items-center justify-center border border-gold-500/40">
-                        <img src="{{ asset('images/uin/logo-uinssc.png') }}" alt="Logo UIN SSC" class="h-10 w-auto object-contain">
-                    </div>
-                    <div>
-                        <div class="font-extrabold text-lg tracking-tight uppercase leading-tight text-white">
-                            Lost &amp; Found
+            <!-- Bagian Atas: Brand Identity Card Elegan (Logo + Nama Institusi yang Balance) -->
+            <div class="relative z-10 space-y-4">
+                <div class="inline-flex items-center bg-white/95 backdrop-blur-md px-4 py-2.5 rounded-2xl shadow-lg border border-white/20 space-x-3.5">
+                    <img src="{{ asset('images/uin/logo-uinssc.png') }}" alt="Logo UIN SSC" class="h-11 w-auto object-contain">
+                    <div class="border-l border-gray-300 pl-3">
+                        <div class="font-extrabold text-sm text-ink uppercase tracking-tight leading-none">
+                            Lost &amp; Found Campus
                         </div>
-                        <div class="text-xs font-semibold text-gold-300 tracking-wider">
-                            UIN SIBER SYEKH NURJATI CIREBON
+                        <div class="text-[10px] font-semibold text-uin-500 tracking-wider uppercase mt-1">
+                            UIN Siber Syekh Nurjati Cirebon
                         </div>
                     </div>
                 </div>
 
-                <div class="mt-4 flex items-center space-x-3 opacity-90">
-                    <img src="{{ asset('images/uin/badge-unggul.png') }}" alt="Akreditasi Unggul" class="h-8 w-auto object-contain">
-                    <img src="{{ asset('images/uin/badge-blu.png') }}" alt="BLU Speed" class="h-6 w-auto object-contain">
-                    <img src="{{ asset('images/uin/badge-ciu.png') }}" alt="Cyber Islamic University" class="h-7 w-auto object-contain">
+                <!-- Deretan Badge Akreditasi Resmi Kampus -->
+                <div class="flex items-center space-x-3.5 pt-1 pl-1 opacity-90">
+                    <img src="{{ asset('images/uin/badge-unggul.png') }}" alt="Akreditasi Unggul" class="h-8 w-auto object-contain" title="Terakreditasi Unggul">
+                    <img src="{{ asset('images/uin/badge-blu.png') }}" alt="BLU Speed" class="h-6 w-auto object-contain" title="Badan Layanan Umum">
+                    <img src="{{ asset('images/uin/badge-ciu.png') }}" alt="Cyber Islamic University" class="h-7 w-auto object-contain" title="Cyber Islamic University">
                 </div>
             </div>
 
-            <!-- Bagian Tengah: Sambutan & Deskripsi Formal -->
-            <div class="relative z-10 max-w-lg my-auto py-8">
-                <!-- Simbol Bintang Eksklusif (seperti referensi) -->
-                <div class="w-14 h-14 rounded-2xl bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center text-gold-400 mb-6 shadow-inner">
-                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"/>
-                    </svg>
+            <!-- Bagian Tengah: Sambutan & Narasi Formal (Balance & Proporsional) -->
+            <div class="relative z-10 max-w-lg my-auto py-10">
+                <div class="inline-flex items-center px-3 py-1 rounded-full bg-gold-500/20 border border-gold-500/40 text-gold-300 text-xs font-semibold mb-4 tracking-wide">
+                    <span class="w-1.5 h-1.5 rounded-full bg-gold-400 mr-2 animate-pulse"></span>
+                    Portal Layanan Resmi Civitas Kampus
                 </div>
 
-                <h1 class="text-3xl xl:text-4xl font-extrabold tracking-tight leading-tight text-white mb-3">
-                    Selamat Datang! <span class="inline-block animate-wave">👋</span><br>
-                    <span class="text-gold-300">Lost &amp; Found Campus</span>
+                <h1 class="text-3xl xl:text-4xl font-extrabold tracking-tight leading-snug text-white mb-4">
+                    Selamat Datang di<br>
+                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-gold-300 via-white to-gold-200">
+                        Lost &amp; Found Campus
+                    </span>
                 </h1>
 
                 <p class="text-sm xl:text-base text-uin-50/90 leading-relaxed font-normal">
-                    Layanan terpadu pelaporan dan penelusuran barang hilang &amp; temuan resmi civitas akademika UIN Siber Syekh Nurjati Cirebon. Wujudkan ekosistem kampus yang amanah, jujur, dan terpercaya.
+                    Layanan terpadu pelaporan dan penelusuran barang hilang &amp; temuan resmi civitas akademika UIN Siber Syekh Nurjati Cirebon. Menghubungkan pelapor dan penemu secara aman, transparan, dan terpercaya.
                 </p>
 
-                <div class="mt-8 flex items-center space-x-6 text-xs text-uin-50/80">
-                    <div class="flex items-center space-x-2">
-                        <svg class="w-4 h-4 text-gold-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <!-- Poin Keunggulan Sistem -->
+                <div class="mt-8 grid grid-cols-2 gap-4 text-xs text-uin-50/85">
+                    <div class="flex items-center space-x-2.5 bg-white/5 border border-white/10 rounded-xl p-3">
+                        <svg class="w-4 h-4 text-gold-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
                         </svg>
-                        <span>Single Sign-On Terintegrasi</span>
+                        <span class="font-medium">Single Sign-On (SSO)</span>
                     </div>
-                    <div class="flex items-center space-x-2">
-                        <svg class="w-4 h-4 text-gold-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
+                    <div class="flex items-center space-x-2.5 bg-white/5 border border-white/10 rounded-xl p-3">
+                        <svg class="w-4 h-4 text-gold-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
                         </svg>
-                        <span>Verifikasi Resmi Kampus</span>
+                        <span class="font-medium">Titik Ambil Resmi Kampus</span>
                     </div>
                 </div>
             </div>
@@ -93,7 +94,7 @@
             <!-- Bagian Bawah: Hak Cipta Formal -->
             <div class="relative z-10 text-xs text-uin-50/70 border-t border-white/10 pt-4 flex items-center justify-between">
                 <span>&copy; {{ date('Y') }} UIN Siber Syekh Nurjati Cirebon. All rights reserved.</span>
-                <span class="text-gold-400/90 font-medium">PUSTIKOM</span>
+                <span class="text-gold-400/90 font-medium tracking-wider">PUSTIKOM</span>
             </div>
         </div>
 
@@ -101,7 +102,7 @@
         <!-- SISI KANAN: FORMULIR LOGIN FORMAL                         -->
         <!-- ======================================================== -->
         <div class="w-full lg:w-1/2 bg-white flex flex-col justify-between p-6 sm:p-12 xl:p-20 overflow-y-auto">
-            <!-- Header Navigasi Cepat (Mobile Branding & Tombol Kembali) -->
+            <!-- Header Navigasi Cepat (Tombol Kembali) -->
             <div class="flex items-center justify-between pb-6">
                 <a href="{{ route('home') }}" class="inline-flex items-center text-xs font-semibold text-gray-500 hover:text-uin-500 transition-colors">
                     <svg class="w-4 h-4 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -110,29 +111,30 @@
                     Kembali ke Beranda
                 </a>
 
-                <!-- Mobile Only Logo -->
-                <div class="lg:hidden flex items-center space-x-2">
-                    <img src="{{ asset('images/uin/logo-uinssc.png') }}" alt="Logo UIN SSC" class="h-8 w-auto object-contain">
-                    <span class="font-extrabold text-xs text-ink uppercase">Lost &amp; Found</span>
+                <!-- Mobile Only Badge Badges -->
+                <div class="lg:hidden flex items-center space-x-1.5">
+                    <img src="{{ asset('images/uin/badge-unggul.png') }}" alt="Unggul" class="h-6 w-auto object-contain">
+                    <img src="{{ asset('images/uin/badge-ciu.png') }}" alt="CIU" class="h-5 w-auto object-contain">
                 </div>
             </div>
 
             <!-- Form Wrapper Container -->
             <div class="w-full max-w-md mx-auto my-auto py-4">
-                <!-- Branding Mini Form -->
-                <div class="mb-8">
-                    <div class="hidden lg:flex items-center space-x-2.5 mb-6">
-                        <img src="{{ asset('images/uin/logo-uinssc.png') }}" alt="Logo UIN SSC" class="h-10 w-auto object-contain">
-                        <div>
-                            <div class="font-extrabold text-sm text-ink uppercase tracking-tight leading-none">
-                                Lost &amp; Found Campus
-                            </div>
-                            <div class="text-[10px] font-semibold text-uin-500 tracking-wide mt-0.5">
-                                Portal Layanan Resmi Kampus
-                            </div>
+                <!-- Branding Header Kanan (Clean & Balance persis seperti Navbar) -->
+                <div class="flex items-center space-x-3 mb-8 pb-5 border-b border-gray-100">
+                    <img src="{{ asset('images/uin/logo-uinssc.png') }}" alt="Logo UIN SSC" class="h-12 w-auto object-contain">
+                    <div class="border-l border-gray-200 pl-3">
+                        <div class="font-extrabold text-base text-ink uppercase tracking-tight leading-none">
+                            Lost &amp; Found
+                        </div>
+                        <div class="text-[11px] font-semibold text-uin-500 tracking-wide mt-1">
+                            UIN Siber Syekh Nurjati Cirebon
                         </div>
                     </div>
+                </div>
 
+                <!-- Heading Form Login -->
+                <div class="mb-7">
                     <h2 class="text-2xl sm:text-3xl font-extrabold text-ink tracking-tight">
                         Masuk ke Akun Anda
                     </h2>
@@ -237,7 +239,7 @@
                         </label>
                     </div>
 
-                    <!-- Tombol Masuk Formal (Hitam Elegan sesuai referensi foto) -->
+                    <!-- Tombol Masuk Formal (Hitam Pekat Elegan) -->
                     <div class="pt-2">
                         <button
                             type="submit"
