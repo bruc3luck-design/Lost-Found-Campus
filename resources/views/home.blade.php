@@ -221,12 +221,14 @@
                                     </div>
                                 @endif
 
-                                <!-- Badge Status Berwarna di Pojok Kanan Atas Foto -->
-                                <div class="absolute top-2 right-2 sm:top-2.5 sm:right-2.5">
-                                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold shadow-sm border {{ $item->statusBadgeClasses() }}">
-                                        {{ $item->statusLabel() }}
-                                    </span>
-                                </div>
+                                <!-- Badge Status Terkini (Hanya tampil jika ada progres: Diklaim / Dikembalikan) -->
+                                @if(in_array($item->status, ['diklaim', 'dikembalikan']))
+                                    <div class="absolute top-2 right-2 sm:top-2.5 sm:right-2.5">
+                                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold shadow-sm border {{ $item->statusBadgeClasses() }}">
+                                            {{ $item->statusLabel() }}
+                                        </span>
+                                    </div>
+                                @endif
 
                                 <!-- Badge Tipe di Pojok Kiri Atas Foto -->
                                 <div class="absolute top-2 left-2 sm:top-2.5 sm:left-2.5">
