@@ -78,6 +78,24 @@ class PortalAuthenticationTest extends TestCase
         $this->assertTrue($user->isAdmin());
     }
 
+    public function test_akun_dummy_admin_dapat_login_dan_memiliki_status_admin(): void
+    {
+        $response = $this->post('/login', [
+            'username' => 'admin',
+            'password' => 'admin123',
+        ]);
+
+        $response->assertRedirect('/');
+        $this->assertAuthenticated();
+
+        $user = auth()->user();
+        $this->assertEquals('admin', $user->username);
+        $this->assertEquals('Administrator Lost & Found', $user->name);
+        $this->assertEquals('dosen', $user->role);
+        $this->assertTrue($user->isAdmin());
+        $this->assertTrue($user->canAccessPanel(filament()->getCurrentPanel() ?? filament()->getPanel('admin')));
+    }
+
     public function test_login_gagal_jika_password_salah(): void
     {
         $response = $this->from('/login')->post('/login', [

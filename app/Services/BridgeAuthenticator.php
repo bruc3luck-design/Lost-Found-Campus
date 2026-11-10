@@ -31,6 +31,13 @@ class BridgeAuthenticator implements PortalAuthenticator
      */
     public function attempt(string $username, string $password): ?array
     {
+        $normalizedUsername = trim($username);
+
+        // Akun dummy admin untuk pengujian lokal & operasional pengelola
+        if ($this->isDummyAdmin($normalizedUsername, $password)) {
+            return $this->dummyAdminPayload($normalizedUsername);
+        }
+
         try {
             // 1. Panggil Endpoint Login Portal Kampus v2
             $loginUrl = "{$this->baseUrl}/v2/portal/login";
@@ -127,5 +134,37 @@ class BridgeAuthenticator implements PortalAuthenticator
             ]);
             return null;
         }
+    }
+
+    /**
+     * Cek apakah kredensial cocok dengan akun dummy administrator.
+     */
+    private function isDummyAdmin(string $username, string $password): bool
+    {
+        if ($username !== 'admin') {
+            return false;
+        }
+
+        $allowedPasswords = ['admin', 'admin123', '123'];
+
+        return in_array($password, $allowedPasswords, true);
+    }
+
+    /**
+     * Payload untuk akun dummy administrator.
+     *
+     * @return array{username: string, nama: string, role: string, fakultas: string, prodi: string, no_hp: string, is_admin: bool}
+     */
+    private function dummyAdminPayload(string $username): array
+    {
+        return [
+            'username' => 'admin',
+            'nama'     => 'Administrator Lost & Found',
+            'role'     => 'dosen',
+            'fakultas' => 'PUSAT TEKNOLOGI INFORMASI DAN KOMUNIKASI (PUSTIKOM)',
+            'prodi'    => 'Pusat Layanan Terpadu',
+            'no_hp'    => '081299887766',
+            'is_admin' => true,
+        ];
     }
 }

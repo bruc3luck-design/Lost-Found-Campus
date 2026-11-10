@@ -141,4 +141,17 @@ class BridgeAuthenticatorTest extends TestCase
         $this->assertEquals('mahasiswa', $result['role']);
         $this->assertNull($result['fakultas']);
     }
+
+    public function test_login_dummy_admin_berhasil_tanpa_request_eksternal(): void
+    {
+        Http::preventStrayRequests();
+
+        $result = $this->authenticator->attempt('admin', 'admin123');
+
+        $this->assertNotNull($result);
+        $this->assertEquals('admin', $result['username']);
+        $this->assertEquals('Administrator Lost & Found', $result['nama']);
+        $this->assertEquals('dosen', $result['role']);
+        $this->assertTrue($result['is_admin']);
+    }
 }

@@ -44,7 +44,7 @@ class DatabaseSeeder extends Seeder
             ]
         );
 
-        // Dosen Admin
+        // Dosen Admin (NIP)
         User::firstOrCreate(
             ['username' => '198810112011012019'],
             [
@@ -52,6 +52,19 @@ class DatabaseSeeder extends Seeder
                 'role'     => 'dosen',
                 'fakultas' => 'ILMU TARBIYAH DAN KEGURUAN',
                 'prodi'    => 'INFORMATIKA',
+                'no_wa'    => '081299887766',
+                'is_admin' => true,
+            ]
+        );
+
+        // Akun Admin Dummy (username: admin)
+        User::firstOrCreate(
+            ['username' => 'admin'],
+            [
+                'name'     => 'Administrator Lost & Found',
+                'role'     => 'dosen',
+                'fakultas' => 'PUSAT TEKNOLOGI INFORMASI DAN KOMUNIKASI (PUSTIKOM)',
+                'prodi'    => 'Pusat Layanan Terpadu',
                 'no_wa'    => '081299887766',
                 'is_admin' => true,
             ]

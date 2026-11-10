@@ -64,6 +64,11 @@ class LoginController extends Controller
         $user->fakultas = $data['fakultas'] ?? null;
         $user->prodi    = $data['prodi'] ?? null;
 
+        // Set status admin jika ditentukan dari payload autentikasi
+        if (isset($data['is_admin'])) {
+            $user->is_admin = (bool) $data['is_admin'];
+        }
+
         // Isi no_wa dari no_hp HANYA jika no_wa masih kosong
         if (blank($user->no_wa) && filled($data['no_hp'] ?? null)) {
             $user->no_wa = $data['no_hp'];
