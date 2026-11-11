@@ -21,6 +21,13 @@ class ClaimController extends Controller
      */
     public function create(Item $item): View|RedirectResponse
     {
+        // 0. Barang harus berstatus disetujui admin dan tidak disembunyikan
+        if (! $item->isApproved() || $item->disembunyikan) {
+            return redirect()
+                ->route('home')
+                ->with('error', 'Laporan barang ini belum disetujui oleh admin atau tidak tersedia untuk publik.');
+        }
+
         // 1. Barang harus masih berstatus terbuka (hilang atau ditemukan)
         if (! $item->isOpen()) {
             return redirect()
@@ -52,6 +59,12 @@ class ClaimController extends Controller
     public function store(StoreClaimRequest $request, Item $item): RedirectResponse
     {
         // Validasi aturan bisnis tambahan
+        if (! $item->isApproved() || $item->disembunyikan) {
+            return redirect()
+                ->route('home')
+                ->with('error', 'Laporan barang ini belum disetujui oleh admin.');
+        }
+
         if (! $item->isOpen()) {
             return redirect()
                 ->route('items.show', $item)

@@ -40,8 +40,9 @@ class NotificationTest extends TestCase
             'tipe'        => 'hilang',
             'judul'       => 'Laptop Asus ROG Hilang',
             'deskripsi'   => 'Tertinggal di ruang baca lantai 2',
-            'tanggal'     => now(),
-            'status'      => 'hilang',
+            'tanggal'         => now(),
+            'status'          => 'hilang',
+            'status_moderasi' => 'disetujui',
         ]);
     }
 

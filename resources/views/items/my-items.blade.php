@@ -54,6 +54,9 @@
                                     <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-[11px] font-semibold border {{ $item->statusBadgeClasses() }}">
                                         {{ $item->statusLabel() }}
                                     </span>
+                                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-[11px] font-semibold border {{ $item->moderasiBadgeClasses() }}">
+                                        {{ $item->moderasiLabel() }}
+                                    </span>
                                 </div>
                                 <span class="text-[11px] text-gray-400">
                                     {{ $item->tanggal->translatedFormat('d M Y') }}
@@ -105,7 +108,28 @@
                                 </div>
                             @endif
 
-                            @if ($item->disembunyikan)
+                            <!-- Status Moderasi Admin & Keterangan -->
+                            @if ($item->isPending())
+                                <div class="mb-3 px-3 py-2 rounded-lg bg-amber-50 border border-amber-200 text-[11px] text-amber-900 flex items-start">
+                                    <svg class="w-4 h-4 text-amber-600 mr-2 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                    </svg>
+                                    <div>
+                                        <strong class="font-bold">Menunggu Verifikasi Admin:</strong>
+                                        <span class="text-amber-800">Laporan Anda sedang ditinjau oleh tim admin sebelum dipublikasikan ke portal untuk mencegah laporan palsu/tidak pantas.</span>
+                                    </div>
+                                </div>
+                            @elseif ($item->isRejected())
+                                <div class="mb-3 px-3 py-2 rounded-lg bg-rose-50 border border-rose-200 text-[11px] text-rose-900 flex items-start">
+                                    <svg class="w-4 h-4 text-rose-600 mr-2 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                    </svg>
+                                    <div>
+                                        <strong class="font-bold">Laporan Ditolak:</strong>
+                                        <span class="text-rose-800">{{ $item->catatan_moderasi ? 'Alasan: ' . $item->catatan_moderasi : 'Laporan tidak memenuhi kriteria publikasi portal.' }}</span>
+                                    </div>
+                                </div>
+                            @elseif ($item->disembunyikan)
                                 <div class="mb-3 px-3 py-1.5 rounded-lg bg-amber-50 border border-amber-200 text-[11px] text-amber-800 flex items-center">
                                     <span class="w-1.5 h-1.5 rounded-full bg-amber-500 mr-1.5"></span>
                                     Laporan ini disembunyikan oleh moderator/admin.

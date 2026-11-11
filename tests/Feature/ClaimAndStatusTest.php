@@ -60,6 +60,7 @@ class ClaimAndStatusTest extends TestCase
             'tanggal'       => now()->toDateString(),
             'deskripsi'     => 'Deskripsi.',
             'status'        => 'hilang',
+            'status_moderasi' => 'disetujui',
             'disembunyikan' => false,
         ]);
 
@@ -80,6 +81,7 @@ class ClaimAndStatusTest extends TestCase
             'tanggal'       => now()->toDateString(),
             'deskripsi'     => 'Deskripsi.',
             'status'        => 'hilang',
+            'status_moderasi' => 'disetujui',
             'disembunyikan' => false,
         ]);
 
@@ -109,6 +111,7 @@ class ClaimAndStatusTest extends TestCase
             'tanggal'         => now()->toDateString(),
             'deskripsi'       => 'Ditemukan di masjid.',
             'status'          => 'ditemukan',
+            'status_moderasi' => 'disetujui',
             'disembunyikan'   => false,
         ]);
 
@@ -146,6 +149,7 @@ class ClaimAndStatusTest extends TestCase
             'tanggal'       => now()->toDateString(),
             'deskripsi'     => 'Kunci motor hilang.',
             'status'        => 'hilang',
+            'status_moderasi' => 'disetujui',
             'disembunyikan' => false,
         ]);
 
@@ -182,6 +186,7 @@ class ClaimAndStatusTest extends TestCase
             'tanggal'       => now()->toDateString(),
             'deskripsi'     => 'Selesai.',
             'status'        => 'dikembalikan',
+            'status_moderasi' => 'disetujui',
             'disembunyikan' => false,
         ]);
 
@@ -203,6 +208,7 @@ class ClaimAndStatusTest extends TestCase
             'tanggal'       => now()->toDateString(),
             'deskripsi'     => 'Deskripsi.',
             'status'        => 'hilang',
+            'status_moderasi' => 'disetujui',
             'disembunyikan' => false,
         ]);
 
@@ -234,6 +240,7 @@ class ClaimAndStatusTest extends TestCase
             'tanggal'       => now()->toDateString(),
             'deskripsi'     => 'Deskripsi.',
             'status'        => 'hilang',
+            'status_moderasi' => 'disetujui',
             'disembunyikan' => false,
         ]);
 
@@ -254,6 +261,7 @@ class ClaimAndStatusTest extends TestCase
             'tanggal'       => now()->toDateString(),
             'deskripsi'     => 'Jaket hilang.',
             'status'        => 'hilang',
+            'status_moderasi' => 'disetujui',
             'disembunyikan' => false,
         ]);
 
@@ -305,6 +313,7 @@ class ClaimAndStatusTest extends TestCase
             'tanggal'       => now()->toDateString(),
             'deskripsi'     => 'Deskripsi.',
             'status'        => 'hilang',
+            'status_moderasi' => 'disetujui',
             'disembunyikan' => false,
         ]);
 
@@ -340,6 +349,7 @@ class ClaimAndStatusTest extends TestCase
             'tanggal'       => now()->toDateString(),
             'deskripsi'     => 'Helm hilang.',
             'status'        => 'diklaim',
+            'status_moderasi' => 'disetujui',
             'disembunyikan' => false,
         ]);
 
@@ -376,6 +386,7 @@ class ClaimAndStatusTest extends TestCase
             'tanggal'       => now()->toDateString(),
             'deskripsi'     => 'Deskripsi.',
             'status'        => 'diklaim',
+            'status_moderasi' => 'disetujui',
             'disembunyikan' => false,
         ]);
 

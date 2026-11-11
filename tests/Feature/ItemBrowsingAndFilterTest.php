@@ -59,6 +59,7 @@ class ItemBrowsingAndFilterTest extends TestCase
             'tanggal'       => now()->toDateString(),
             'deskripsi'     => 'Dompet tertinggal di lantai 2.',
             'status'        => 'hilang',
+            'status_moderasi' => 'disetujui',
             'disembunyikan' => false,
         ]);
 
@@ -72,6 +73,7 @@ class ItemBrowsingAndFilterTest extends TestCase
             'tanggal'         => now()->toDateString(),
             'deskripsi'       => 'Ditemukan di serambi masjid.',
             'status'          => 'ditemukan',
+            'status_moderasi' => 'disetujui',
             'disembunyikan'   => false,
         ]);
 
@@ -92,6 +94,7 @@ class ItemBrowsingAndFilterTest extends TestCase
             'tanggal'       => now()->toDateString(),
             'deskripsi'     => 'Kunci motor hilang.',
             'status'        => 'hilang',
+            'status_moderasi' => 'disetujui',
             'disembunyikan' => false,
         ]);
 
@@ -105,6 +108,7 @@ class ItemBrowsingAndFilterTest extends TestCase
             'tanggal'         => now()->toDateString(),
             'deskripsi'       => 'Tas ransel di serambi masjid.',
             'status'          => 'ditemukan',
+            'status_moderasi' => 'disetujui',
             'disembunyikan'   => false,
         ]);
 
@@ -125,6 +129,7 @@ class ItemBrowsingAndFilterTest extends TestCase
             'tanggal'       => now()->toDateString(),
             'deskripsi'     => 'Kacamata lensa minus tertinggal.',
             'status'        => 'hilang',
+            'status_moderasi' => 'disetujui',
             'disembunyikan' => false,
         ]);
 
@@ -137,6 +142,7 @@ class ItemBrowsingAndFilterTest extends TestCase
             'tanggal'       => now()->toDateString(),
             'deskripsi'     => 'Topi tertinggal di meja baca.',
             'status'        => 'hilang',
+            'status_moderasi' => 'disetujui',
             'disembunyikan' => false,
         ]);
 
@@ -162,6 +168,7 @@ class ItemBrowsingAndFilterTest extends TestCase
             'tanggal'       => now()->toDateString(),
             'deskripsi'     => 'Uji filter.',
             'status'        => 'hilang',
+            'status_moderasi' => 'disetujui',
             'disembunyikan' => false,
         ]);
 
@@ -174,6 +181,7 @@ class ItemBrowsingAndFilterTest extends TestCase
             'tanggal'       => now()->toDateString(),
             'deskripsi'     => 'Uji filter 2.',
             'status'        => 'hilang',
+            'status_moderasi' => 'disetujui',
             'disembunyikan' => false,
         ]);
 
@@ -199,6 +207,7 @@ class ItemBrowsingAndFilterTest extends TestCase
             'tanggal'       => now()->toDateString(),
             'deskripsi'     => 'Tidak boleh terlihat di beranda.',
             'status'        => 'hilang',
+            'status_moderasi' => 'disetujui',
             'disembunyikan' => true,
         ]);
 
@@ -217,6 +226,7 @@ class ItemBrowsingAndFilterTest extends TestCase
             'tanggal'       => now()->toDateString(),
             'deskripsi'     => 'Buku binder warna biru ada stiker UIN SSC.',
             'status'        => 'hilang',
+            'status_moderasi' => 'disetujui',
             'disembunyikan' => false,
         ]);
 
@@ -243,6 +253,7 @@ class ItemBrowsingAndFilterTest extends TestCase
             'tanggal'       => now()->toDateString(),
             'deskripsi'     => 'Deskripsi KTM.',
             'status'        => 'hilang',
+            'status_moderasi' => 'disetujui',
             'disembunyikan' => false,
         ]);
 
@@ -261,6 +272,7 @@ class ItemBrowsingAndFilterTest extends TestCase
             'tanggal'         => now()->toDateString(),
             'deskripsi'       => 'Deskripsi temuan.',
             'status'          => 'ditemukan',
+            'status_moderasi' => 'disetujui',
             'disembunyikan'   => false,
         ]);
 
@@ -282,6 +294,7 @@ class ItemBrowsingAndFilterTest extends TestCase
             'tanggal'       => now()->toDateString(),
             'deskripsi'     => 'Deskripsi.',
             'status'        => 'hilang',
+            'status_moderasi' => 'disetujui',
             'disembunyikan' => false,
         ]);
 
@@ -303,6 +316,7 @@ class ItemBrowsingAndFilterTest extends TestCase
             'tanggal'       => now()->toDateString(),
             'deskripsi'     => 'Disembunyikan.',
             'status'        => 'hilang',
+            'status_moderasi' => 'disetujui',
             'disembunyikan' => true,
         ]);
 

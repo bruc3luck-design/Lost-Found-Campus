@@ -112,6 +112,7 @@ class ItemController extends Controller
             'pickup_point_id' => $pickupPointId,
             'tanggal'         => $validated['tanggal'],
             'status'          => $statusAwal,
+            'status_moderasi' => 'menunggu',
             'disembunyikan'   => false,
         ]);
 
@@ -119,7 +120,7 @@ class ItemController extends Controller
 
         return redirect()
             ->route('my.items')
-            ->with('success', "Laporan {$pesanTipe} barang \"{$item->judul}\" berhasil diterbitkan!");
+            ->with('success', "Laporan {$pesanTipe} barang \"{$item->judul}\" berhasil diajukan dan sedang menunggu verifikasi admin sebelum tampil di publik.");
     }
 
     /**

@@ -17,19 +17,19 @@ class ItemPolicy
 
     /**
      * Melihat detail laporan.
-     * Item tersembunyi hanya dapat dilihat oleh pemilik atau admin.
+     * Item tersembunyi atau belum disetujui admin hanya dapat dilihat oleh pemilik atau admin.
      */
     public function view(?User $user, Item $item): bool
     {
-        if (! $item->disembunyikan) {
-            return true;
+        if ($item->disembunyikan || $item->status_moderasi !== 'disetujui') {
+            if (! $user) {
+                return false;
+            }
+
+            return $user->id === $item->user_id || $user->isAdmin();
         }
 
-        if (! $user) {
-            return false;
-        }
-
-        return $user->id === $item->user_id || $user->isAdmin();
+        return true;
     }
 
     /**

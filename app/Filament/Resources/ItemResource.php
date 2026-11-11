@@ -19,10 +19,42 @@ class ItemResource extends Resource
     protected static ?string $modelLabel = 'Laporan Barang';
     protected static ?string $pluralModelLabel = 'Laporan Barang';
 
+    public static function getNavigationBadge(): ?string
+    {
+        $count = Item::where('status_moderasi', 'menunggu')->count();
+        return $count > 0 ? (string) $count : null;
+    }
+
+    public static function getNavigationBadgeColor(): ?string
+    {
+        return 'warning';
+    }
+
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
+                Forms\Components\Section::make('Verifikasi & Moderasi Admin')
+                    ->description('Tentukan apakah laporan ini layak dipublikasikan ke publik atau ditolak (misal laporan palsu/tidak senonoh).')
+                    ->schema([
+                        Forms\Components\Select::make('status_moderasi')
+                            ->label('Status Moderasi')
+                            ->options([
+                                'menunggu'  => 'Menunggu Persetujuan',
+                                'disetujui' => 'Disetujui (Tayang ke Publik)',
+                                'ditolak'   => 'Ditolak',
+                            ])
+                            ->required()
+                            ->default('menunggu'),
+                        Forms\Components\Textarea::make('catatan_moderasi')
+                            ->label('Catatan / Alasan Penolakan')
+                            ->placeholder('Jelaskan alasan jika laporan ditolak...')
+                            ->rows(2),
+                        Forms\Components\Toggle::make('disembunyikan')
+                            ->label('Sembunyikan dari Publik')
+                            ->helperText('Jika aktif, laporan ini disembunyikan meski berstatus disetujui.'),
+                    ])->columns(3),
+
                 Forms\Components\Section::make('Informasi Utama')
                     ->schema([
                         Forms\Components\Select::make('user_id')
@@ -81,9 +113,6 @@ class ItemResource extends Resource
                             ->required()
                             ->rows(4)
                             ->columnSpanFull(),
-                        Forms\Components\Toggle::make('disembunyikan')
-                            ->label('Sembunyikan dari Publik')
-                            ->helperText('Jika aktif, laporan ini tidak akan tampil di pencarian atau beranda publik.'),
                     ])->columns(2),
             ]);
     }
@@ -103,6 +132,20 @@ class ItemResource extends Resource
                     ->sortable()
                     ->weight('bold')
                     ->description(fn (Item $record) => 'Pelapor: ' . ($record->user?->name ?? '-')),
+                Tables\Columns\BadgeColumn::make('status_moderasi')
+                    ->label('Moderasi Admin')
+                    ->colors([
+                        'warning' => 'menunggu',
+                        'success' => 'disetujui',
+                        'danger'  => 'ditolak',
+                    ])
+                    ->formatStateUsing(fn ($state) => match ($state) {
+                        'menunggu'  => 'Menunggu',
+                        'disetujui' => 'Disetujui',
+                        'ditolak'   => 'Ditolak',
+                        default     => ucfirst($state ?? '-'),
+                    })
+                    ->sortable(),
                 Tables\Columns\BadgeColumn::make('tipe')
                     ->label('Tipe')
                     ->colors([
@@ -135,6 +178,13 @@ class ItemResource extends Resource
                     ->sortable(),
             ])
             ->filters([
+                Tables\Filters\SelectFilter::make('status_moderasi')
+                    ->label('Status Moderasi')
+                    ->options([
+                        'menunggu'  => 'Menunggu Persetujuan',
+                        'disetujui' => 'Disetujui (Tayang)',
+                        'ditolak'   => 'Ditolak',
+                    ]),
                 Tables\Filters\SelectFilter::make('tipe')
                     ->options([
                         'hilang' => 'Hilang',
@@ -154,16 +204,101 @@ class ItemResource extends Resource
                     ->label('Status Disembunyikan'),
             ])
             ->actions([
+                Tables\Actions\Action::make('setujui')
+                    ->label('Setujui')
+                    ->icon('heroicon-o-check-circle')
+                    ->color('success')
+                    ->requiresConfirmation()
+                    ->modalHeading('Setujui Laporan Barang')
+                    ->modalDescription('Laporan ini akan langsung tampil di portal publik dan pemilik laporan akan menerima notifikasi.')
+                    ->visible(fn (Item $record) => $record->status_moderasi !== 'disetujui')
+                    ->action(function (Item $record) {
+                        $record->update([
+                            'status_moderasi'  => 'disetujui',
+                            'catatan_moderasi' => null,
+                            'moderated_at'     => now(),
+                            'moderated_by'     => auth()->id(),
+                        ]);
+
+                        if ($record->user) {
+                            $record->user->notify(new \App\Notifications\ItemApprovedNotification($record));
+                        }
+
+                        \Filament\Notifications\Notification::make()
+                            ->title('Laporan Disetujui')
+                            ->body("Laporan \"{$record->judul}\" berhasil disetujui dan kini tayang di publik.")
+                            ->success()
+                            ->send();
+                    }),
+
+                Tables\Actions\Action::make('tolak')
+                    ->label('Tolak')
+                    ->icon('heroicon-o-x-circle')
+                    ->color('danger')
+                    ->form([
+                        Forms\Components\Textarea::make('alasan')
+                            ->label('Alasan Penolakan')
+                            ->placeholder('Contoh: Foto tidak jelas, indikasi spam, barang tidak senonoh/palsu, dll.')
+                            ->required()
+                            ->rows(3),
+                    ])
+                    ->modalHeading('Tolak Laporan Barang')
+                    ->modalDescription('Laporan ini tidak akan tampil di publik. Alasan penolakan akan dikirimkan kepada pelapor.')
+                    ->visible(fn (Item $record) => $record->status_moderasi !== 'ditolak')
+                    ->action(function (Item $record, array $data) {
+                        $record->update([
+                            'status_moderasi'  => 'ditolak',
+                            'catatan_moderasi' => $data['alasan'] ?? null,
+                            'moderated_at'     => now(),
+                            'moderated_by'     => auth()->id(),
+                        ]);
+
+                        if ($record->user) {
+                            $record->user->notify(new \App\Notifications\ItemRejectedNotification($record, $data['alasan'] ?? null));
+                        }
+
+                        \Filament\Notifications\Notification::make()
+                            ->title('Laporan Ditolak')
+                            ->body("Laporan \"{$record->judul}\" telah ditolak.")
+                            ->danger()
+                            ->send();
+                    }),
+
                 Tables\Actions\Action::make('toggle_sembunyikan')
                     ->label(fn (Item $record) => $record->disembunyikan ? 'Tampilkan' : 'Sembunyikan')
                     ->icon(fn (Item $record) => $record->disembunyikan ? 'heroicon-o-eye' : 'heroicon-o-eye-slash')
                     ->color(fn (Item $record) => $record->disembunyikan ? 'success' : 'warning')
                     ->action(fn (Item $record) => $record->update(['disembunyikan' => !$record->disembunyikan])),
+
                 Tables\Actions\EditAction::make(),
                 Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
+                    Tables\Actions\BulkAction::make('bulk_setujui')
+                        ->label('Setujui Terpilih')
+                        ->icon('heroicon-o-check-circle')
+                        ->color('success')
+                        ->requiresConfirmation()
+                        ->action(function (\Illuminate\Database\Eloquent\Collection $records) {
+                            $records->each(function (Item $record) {
+                                $record->update([
+                                    'status_moderasi'  => 'disetujui',
+                                    'catatan_moderasi' => null,
+                                    'moderated_at'     => now(),
+                                    'moderated_by'     => auth()->id(),
+                                ]);
+                                if ($record->user) {
+                                    $record->user->notify(new \App\Notifications\ItemApprovedNotification($record));
+                                }
+                            });
+
+                            \Filament\Notifications\Notification::make()
+                                ->title('Laporan Disetujui')
+                                ->body(count($records) . ' laporan berhasil disetujui.')
+                                ->success()
+                                ->send();
+                        }),
                     Tables\Actions\DeleteBulkAction::make(),
                 ]),
             ]);

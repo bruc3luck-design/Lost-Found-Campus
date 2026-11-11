@@ -25,6 +25,10 @@ class Item extends Model
         'pickup_point_id',
         'tanggal',
         'status',
+        'status_moderasi',
+        'catatan_moderasi',
+        'moderated_at',
+        'moderated_by',
         'disembunyikan',
     ];
 
@@ -33,6 +37,7 @@ class Item extends Model
         return [
             'tanggal'       => 'date',
             'disembunyikan' => 'boolean',
+            'moderated_at'  => 'datetime',
         ];
     }
 
@@ -70,16 +75,42 @@ class Item extends Model
         return $this->hasOne(Claim::class)->where('status', 'disetujui');
     }
 
+    public function moderator(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'moderated_by');
+    }
+
     // ==========================================
     // Query Scopes (Mengabaikan parameter kosong)
     // ==========================================
 
     /**
-     * Tampilkan item yang tidak disembunyikan oleh admin.
+     * Tampilkan item yang telah disetujui admin dan tidak disembunyikan.
      */
     public function scopeTampil(Builder $query): Builder
     {
-        return $query->where('disembunyikan', false);
+        return $query->where('status_moderasi', 'disetujui')
+                     ->where('disembunyikan', false);
+    }
+
+    /**
+     * Scope untuk laporan yang masih menunggu moderasi admin.
+     */
+    public function scopeMenunggu(Builder $query): Builder
+    {
+        return $query->where('status_moderasi', 'menunggu');
+    }
+
+    /**
+     * Filter berdasarkan status moderasi.
+     */
+    public function scopeModerasi(Builder $query, ?string $status): Builder
+    {
+        if (blank($status)) {
+            return $query;
+        }
+
+        return $query->where('status_moderasi', $status);
     }
 
     /**
@@ -195,6 +226,41 @@ class Item extends Model
             'hilang' => 'bg-rose-50 text-rose-700 border-rose-200',
             'temuan' => 'bg-uin-50 text-uin-700 border-uin-500/20',
             default  => 'bg-gray-50 text-gray-700 border-gray-200',
+        };
+    }
+
+    public function isApproved(): bool
+    {
+        return $this->status_moderasi === 'disetujui';
+    }
+
+    public function isPending(): bool
+    {
+        return $this->status_moderasi === 'menunggu';
+    }
+
+    public function isRejected(): bool
+    {
+        return $this->status_moderasi === 'ditolak';
+    }
+
+    public function moderasiLabel(): string
+    {
+        return match ($this->status_moderasi) {
+            'menunggu'  => 'Menunggu Verifikasi',
+            'disetujui' => 'Disetujui Admin',
+            'ditolak'   => 'Ditolak Admin',
+            default     => ucfirst($this->status_moderasi ?? 'menunggu'),
+        };
+    }
+
+    public function moderasiBadgeClasses(): string
+    {
+        return match ($this->status_moderasi) {
+            'menunggu'  => 'bg-amber-100 text-amber-800 border-amber-300',
+            'disetujui' => 'bg-emerald-100 text-emerald-800 border-emerald-300',
+            'ditolak'   => 'bg-rose-100 text-rose-800 border-rose-300',
+            default     => 'bg-gray-100 text-gray-800 border-gray-300',
         };
     }
 }
